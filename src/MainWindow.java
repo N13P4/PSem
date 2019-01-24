@@ -21,7 +21,7 @@ import project.gui.WindowModule;
  * Eventuelle Schäden meines Gehirns durch das Lesen von "Iphigenie auf Tauris" nicht ausschließen.
  *
  * @author DanielderErbauer
- * @author Niels
+ * @author N13P4
  * @author Ernst
  *
  */
