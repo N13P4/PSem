@@ -15,6 +15,7 @@ import project.encryption.AESCipher;
 import project.encryption.Vigenere;
 import project.gui.WindowModule;
 import project.additional.passwordgenerator;
+import project.encryption.hashing.MD5;
 
 /**
  * Sollten sich in den Kommentaren sowohl Rechtschreib- als auch Grammatik- und Satzzeichenfehler finden, möchte ich (Daniel)
@@ -26,6 +27,10 @@ import project.additional.passwordgenerator;
  *
  */
 public class MainWindow extends JFrame {
+    private JButton buttonpassword;
+    private JLabel labelpassword;
+    private JTextField textfieldpasswordoutput;
+    private JLabel labelPasswordLength;
     private JTextField textPasswordLength;
     private JButton btnGeneratePassword;
     private JLabel labelVigenere;
@@ -57,7 +62,16 @@ public class MainWindow extends JFrame {
     }
 
     public void initWindow() {
+        buttonpassword = new JButton("Generate");
+        buttonpassword.setBounds(975,60,110,20);
+        labelpassword = new JLabel("Password:");
+        labelpassword.setBounds(840,35, 125,20);
+        textfieldpasswordoutput = new JTextField();
+        textfieldpasswordoutput.setBounds(975,35,200,20);
+        labelPasswordLength = new JLabel("Password length:");
+        labelPasswordLength.setBounds(840,10,125,20);
         textPasswordLength = new JTextField();
+        textPasswordLength.setBounds(975,10,200,20);
         btnGeneratePassword = new JButton();
         textfieldVigenere = new JTextField();
         textfieldVigenere.setBounds(395, 130, 180, 20);
@@ -121,6 +135,11 @@ public class MainWindow extends JFrame {
         this.getContentPane().add(labelVigenere);
         this.getContentPane().add(labelAesKey);
         this.getContentPane().add(textfieldVigenere);
+        this.getContentPane().add(textPasswordLength);
+        this.getContentPane().add(labelPasswordLength);
+        this.getContentPane().add(textfieldpasswordoutput);
+        this.getContentPane().add(labelpassword);
+        this.getContentPane().add(buttonpassword);
         for (int i = 0; i < wmList.size(); i++) {
             this.getContentPane().add(wmList.get(i));
         }
@@ -185,8 +204,13 @@ public class MainWindow extends JFrame {
                                 System.out.println(e.getMessage());
                             }
 
-                        case "DES":
-
+                        case "MD5":
+                           try{
+                               textToEnkrypt = MD5.generatemd5hash(textToEnkrypt);
+                           }
+                           catch(Exception e){
+                               System.out.println(e);
+                           }
 
                             break;
                         default:
@@ -262,7 +286,7 @@ public class MainWindow extends JFrame {
                                 System.out.println(e.getMessage());
                             }
 
-                        case "SHA-1024":
+                        case "MD5":
 
                             break;
                         default:
