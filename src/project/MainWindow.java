@@ -27,12 +27,12 @@ import project.encryption.hashing.MD5;
  *
  */
 public class MainWindow extends JFrame {
+
     private JButton buttonpassword;
     private JLabel labelpassword;
     private JTextField textfieldpasswordoutput;
     private JLabel labelPasswordLength;
     private JTextField textPasswordLength;
-    private JButton btnGeneratePassword;
     private JLabel labelVigenere;
     private JTextField textfieldVigenere;
     private JButton btnExpand;
@@ -64,6 +64,7 @@ public class MainWindow extends JFrame {
     public void initWindow() {
         buttonpassword = new JButton("Generate");
         buttonpassword.setBounds(975,60,110,20);
+        buttonpassword.addActionListener(handler);
         labelpassword = new JLabel("Password:");
         labelpassword.setBounds(840,35, 125,20);
         textfieldpasswordoutput = new JTextField();
@@ -72,7 +73,6 @@ public class MainWindow extends JFrame {
         labelPasswordLength.setBounds(840,10,125,20);
         textPasswordLength = new JTextField();
         textPasswordLength.setBounds(975,10,200,20);
-        btnGeneratePassword = new JButton();
         textfieldVigenere = new JTextField();
         textfieldVigenere.setBounds(395, 130, 180, 20);
         labelVigenere = new JLabel("Key (numeric):");
@@ -209,7 +209,7 @@ public class MainWindow extends JFrame {
                                textToEnkrypt = MD5.generatemd5hash(textToEnkrypt);
                            }
                            catch(Exception e){
-                               System.out.println(e);
+                               System.out.println(e.getMessage());
                            }
 
                             break;
@@ -219,17 +219,18 @@ public class MainWindow extends JFrame {
                 }
                 textFieldResult.setText(textToEnkrypt);
 
-            } else if (event.getSource() == btnGeneratePassword) {
+            } else if (event.getSource() == buttonpassword) {
               try{
                   int length = Integer.valueOf(textPasswordLength.getText());
-                  textFieldResult.setText(passwordgenerator.generatepassword(length));
+                  textfieldpasswordoutput.setText(passwordgenerator.generatepassword(length));
               }
               catch(Exception e){
-                  System.out.println(e);
+                  JFrame popup = new JFrame();
+                  JOptionPane.showMessageDialog(popup, "Invalid value - Numbers only!");
               }
 
             } else if (event.getSource() == btnExpand) {
-                if(!isExpanded) {
+                if (!isExpanded) {
                     instance.setSize(1200, 150 + (wmList.size() * 40));
                     btnExpand.setText("<");
                 } else {
@@ -238,8 +239,12 @@ public class MainWindow extends JFrame {
                 }
                 isExpanded = !isExpanded;
 
-
-
+            }else if(event.getSource() == buttonpassword){
+                try {
+                    textfieldpasswordoutput.setText(passwordgenerator.generatepassword(Integer.valueOf(textPasswordLength.getText())));
+                }catch(Exception e){
+                    System.out.println(e);
+                }
                 /**
                  * Fügt zum JFrame ein neues Verschlüsselungsmodul hinzu, solange der JFrame kleiner als der Bildschirm des Benutzers ist.
                  * Bug: Würde das JFrame größer als der Bildschirm werden, würden alle Inhalte der ContentPane nicht mehr gerendert werden.
