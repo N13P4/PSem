@@ -12,8 +12,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import project.encryption.AESCipher;
-import project.encryption.Caesar;
+import project.encryption.Vigenere;
 import project.gui.WindowModule;
+import project.additional.passwordgenerator;
 
 /**
  * Sollten sich in den Kommentaren sowohl Rechtschreib- als auch Grammatik- und Satzzeichenfehler finden, möchte ich (Daniel)
@@ -25,6 +26,8 @@ import project.gui.WindowModule;
  *
  */
 public class MainWindow extends JFrame {
+    private JTextField textfieldpasswordlength;
+    private JButton buttongeneratepassword;
     private JLabel labelvigenere;
     private JTextField textfieldvigenere;
     private JButton ex;
@@ -52,6 +55,8 @@ public class MainWindow extends JFrame {
     }
 
     public void initWindow() {
+        textfieldpasswordlength = new JTextField();
+        buttongeneratepassword = new JButton();
         textfieldvigenere = new JTextField();
         textfieldvigenere.setBounds(395, 130, 180, 20);
         labelvigenere = new JLabel("Key (numeric):");
@@ -97,6 +102,7 @@ public class MainWindow extends JFrame {
      * Methode zum Neu-Laden aller Elemente im JFrame.
      * Wird auch im Konstruktor verwendet, um redundanten Code zu vermeiden.
      */
+    @SuppressWarnings("Duplicates")
     public void reload() {
         this.getContentPane().removeAll();
         this.setSize(635, 150 + (wmList.size() * 40));
@@ -160,7 +166,7 @@ public class MainWindow extends JFrame {
                 for (int i = 0; i < wmList.size(); i++) {
                     switch (wmList.get(i).getSelected()) {
                         case "Vigenere 2.0":
-                            textToEnkrypt = Caesar.encrypt(textToEnkrypt, Integer.valueOf(textfieldvigenere.getText()));
+                            textToEnkrypt = Vigenere.encrypt(textToEnkrypt, Integer.valueOf(textfieldvigenere.getText()));
                             // Verschlüsselt mit Vigenere
                             break;
                         case "AES":
@@ -186,6 +192,14 @@ public class MainWindow extends JFrame {
                 }
                 textFieldResult.setText(textToEnkrypt);
 
+            } else if (event.getSource() == buttongeneratepassword) {
+              try{
+                  int length = Integer.valueOf(textfieldpasswordlength.getText());
+                  textFieldResult.setText(passwordgenerator.generatepassword(length));
+              }
+              catch(Exception e){
+                  System.out.println(e);
+              }
 
             } else if (event.getSource() == ex) {
                 instance.setSize(1200, 110 + (wmList.size() * 40));
@@ -221,7 +235,7 @@ public class MainWindow extends JFrame {
                 for (int i = 0; i < wmList.size(); i++) {
                     switch (wmList.get(i).getSelected()) {
                         case "Vigenere 2.0":
-                            textToDekrypt = Caesar.decrypt(textToDekrypt, Integer.valueOf(textfieldvigenere.getText()));
+                            textToDekrypt = Vigenere.decrypt(textToDekrypt, Integer.valueOf(textfieldvigenere.getText()));
 
                             break;
                         case "AES":
