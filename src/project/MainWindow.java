@@ -26,11 +26,11 @@ import project.additional.passwordgenerator;
  *
  */
 public class MainWindow extends JFrame {
-    private JTextField textfieldpasswordlength;
-    private JButton buttongeneratepassword;
-    private JLabel labelvigenere;
-    private JTextField textfieldvigenere;
-    private JButton ex;
+    private JTextField textPasswordLength;
+    private JButton btnGeneratePassword;
+    private JLabel labelVigenere;
+    private JTextField textfieldVigenere;
+    private JButton btnExpand;
     private JLabel labelInput;
     private JTextField textFieldInput;
     private JLabel labelAesKey;
@@ -45,6 +45,8 @@ public class MainWindow extends JFrame {
     private EventHandler handler;
     private LinkedList<WindowModule> wmList;
 
+    private boolean isExpanded = false;
+
     /**
      * Konstruktor der Hauptklasse des ganzen Programms.
      */
@@ -55,14 +57,15 @@ public class MainWindow extends JFrame {
     }
 
     public void initWindow() {
-        textfieldpasswordlength = new JTextField();
-        buttongeneratepassword = new JButton();
-        textfieldvigenere = new JTextField();
-        textfieldvigenere.setBounds(395, 130, 180, 20);
-        labelvigenere = new JLabel("Key (numeric):");
-        labelvigenere.setBounds(395, 110, 190, 20);
-        ex = new JButton(">");
-        ex.setBounds(580, 69, 44, 15);
+        textPasswordLength = new JTextField();
+        btnGeneratePassword = new JButton();
+        textfieldVigenere = new JTextField();
+        textfieldVigenere.setBounds(395, 130, 180, 20);
+        labelVigenere = new JLabel("Key (numeric):");
+        labelVigenere.setBounds(395, 110, 190, 20);
+        btnExpand = new JButton(">");
+        btnExpand.setBounds(580, 69, 44, 15);
+        btnExpand.addActionListener(handler);
         labelInput = new JLabel("Input: ");
         labelInput.setBounds(10, 10, 80, 20);
         textFieldInput = new JTextField();
@@ -111,13 +114,13 @@ public class MainWindow extends JFrame {
         this.getContentPane().add(textFieldInput);
         this.getContentPane().add(btnEncrypt);
         this.getContentPane().add(btnDecrypt);
-        this.getContentPane().add(ex);
+        this.getContentPane().add(btnExpand);
         this.getContentPane().add(btnPlus);
         this.getContentPane().add(btnMinus);
         this.getContentPane().add(textFieldAesKey);
-        this.getContentPane().add(labelvigenere);
+        this.getContentPane().add(labelVigenere);
         this.getContentPane().add(labelAesKey);
-        this.getContentPane().add(textfieldvigenere);
+        this.getContentPane().add(textfieldVigenere);
         for (int i = 0; i < wmList.size(); i++) {
             this.getContentPane().add(wmList.get(i));
         }
@@ -166,7 +169,7 @@ public class MainWindow extends JFrame {
                 for (int i = 0; i < wmList.size(); i++) {
                     switch (wmList.get(i).getSelected()) {
                         case "Vigenere 2.0":
-                            textToEnkrypt = Vigenere.encrypt(textToEnkrypt, Integer.valueOf(textfieldvigenere.getText()));
+                            textToEnkrypt = Vigenere.encrypt(textToEnkrypt, Integer.valueOf(textfieldVigenere.getText()));
                             // Verschlüsselt mit Vigenere
                             break;
                         case "AES":
@@ -192,17 +195,25 @@ public class MainWindow extends JFrame {
                 }
                 textFieldResult.setText(textToEnkrypt);
 
-            } else if (event.getSource() == buttongeneratepassword) {
+            } else if (event.getSource() == btnGeneratePassword) {
               try{
-                  int length = Integer.valueOf(textfieldpasswordlength.getText());
+                  int length = Integer.valueOf(textPasswordLength.getText());
                   textFieldResult.setText(passwordgenerator.generatepassword(length));
               }
               catch(Exception e){
                   System.out.println(e);
               }
 
-            } else if (event.getSource() == ex) {
-                instance.setSize(1200, 110 + (wmList.size() * 40));
+            } else if (event.getSource() == btnExpand) {
+                if(!isExpanded) {
+                    instance.setSize(1200, 150 + (wmList.size() * 40));
+                    btnExpand.setText("<");
+                } else {
+                    instance.setSize(635, 150 + (wmList.size() * 40));
+                    btnExpand.setText(">");
+                }
+                isExpanded = !isExpanded;
+
 
 
                 /**
@@ -235,7 +246,7 @@ public class MainWindow extends JFrame {
                 for (int i = 0; i < wmList.size(); i++) {
                     switch (wmList.get(i).getSelected()) {
                         case "Vigenere 2.0":
-                            textToDekrypt = Vigenere.decrypt(textToDekrypt, Integer.valueOf(textfieldvigenere.getText()));
+                            textToDekrypt = Vigenere.decrypt(textToDekrypt, Integer.valueOf(textfieldVigenere.getText()));
 
                             break;
                         case "AES":
