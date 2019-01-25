@@ -1,5 +1,6 @@
 package project;
 
+import java.awt.datatransfer.*;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,12 @@ import project.encryption.hashing.MD5;
  */
 public class MainWindow extends JFrame {
 
+    private JButton cryptcopy2clipboard;
+    private JButton generatehash;
+    private JLabel hashinput;
+    private JLabel hashoutput;
+    private JTextField textfieldhashinput;
+    private JTextField textfieldhashoutput;
     private JButton buttonpassword;
     private JLabel labelpassword;
     private JTextField textfieldpasswordoutput;
@@ -62,23 +69,36 @@ public class MainWindow extends JFrame {
     }
 
     public void initWindow() {
+        cryptcopy2clipboard = new JButton("Copy");
+        cryptcopy2clipboard.addActionListener(handler);
+        generatehash = new JButton("Generate");
+        generatehash.setBounds(700, 160, 110, 20);
+        generatehash.addActionListener(handler);
+        hashoutput = new JLabel("Output:");
+        hashoutput.setBounds(700,130,120,20);
+        textfieldhashinput = new JTextField();
+        textfieldhashinput.setBounds(770,100,255,20);
+        textfieldhashoutput = new JTextField();
+        textfieldhashoutput.setBounds(770, 130, 255, 20);
+        hashinput = new JLabel("Input:");
+        hashinput.setBounds(700,100,120,20);
         buttonpassword = new JButton("Generate");
-        buttonpassword.setBounds(975,60,110,20);
+        buttonpassword.setBounds(700,60,110,20);
         buttonpassword.addActionListener(handler);
         labelpassword = new JLabel("Password:");
-        labelpassword.setBounds(840,35, 125,20);
+        labelpassword.setBounds(700,35, 125,20);
         textfieldpasswordoutput = new JTextField();
-        textfieldpasswordoutput.setBounds(975,35,200,20);
+        textfieldpasswordoutput.setBounds(835,35,200,20);
         labelPasswordLength = new JLabel("Password length:");
-        labelPasswordLength.setBounds(840,10,125,20);
+        labelPasswordLength.setBounds(700,10,125,20);
         textPasswordLength = new JTextField();
-        textPasswordLength.setBounds(975,10,200,20);
+        textPasswordLength.setBounds(835,10,200,20);
         textfieldVigenere = new JTextField();
         textfieldVigenere.setBounds(395, 130, 180, 20);
         labelVigenere = new JLabel("Key (numeric):");
         labelVigenere.setBounds(395, 110, 190, 20);
         btnExpand = new JButton(">");
-        btnExpand.setBounds(580, 69, 44, 15);
+        btnExpand.setBounds(580, 175, 44, 15);
         btnExpand.addActionListener(handler);
         labelInput = new JLabel("Input: ");
         labelInput.setBounds(10, 10, 80, 20);
@@ -122,7 +142,7 @@ public class MainWindow extends JFrame {
     @SuppressWarnings("Duplicates")
     public void reload() {
         this.getContentPane().removeAll();
-        this.setSize(635, 150 + (wmList.size() * 40));
+        this.setSize(635, 225 + (wmList.size() * 40));
         this.getContentPane().setLayout(null);
         this.getContentPane().add(labelInput);
         this.getContentPane().add(textFieldInput);
@@ -140,13 +160,21 @@ public class MainWindow extends JFrame {
         this.getContentPane().add(textfieldpasswordoutput);
         this.getContentPane().add(labelpassword);
         this.getContentPane().add(buttonpassword);
+        this.getContentPane().add(hashinput);
+        this.getContentPane().add(hashoutput);
+        this.getContentPane().add(textfieldhashinput);
+        this.getContentPane().add(textfieldhashoutput);
+        this.getContentPane().add(generatehash);
+        this.getContentPane().add(cryptcopy2clipboard);
         for (int i = 0; i < wmList.size(); i++) {
             this.getContentPane().add(wmList.get(i));
         }
         textFieldResult.setBounds(60, 50 + (wmList.size() * 40), 325, 20);
         labelResult.setBounds(10, 50 + (wmList.size() * 40), 40, 20);
+        cryptcopy2clipboard.setBounds(10, 80 + (wmList.size() * 40), 100, 20);
         this.getContentPane().add(labelResult);
         this.getContentPane().add(textFieldResult);
+        this.getContentPane().add(cryptcopy2clipboard);
     }
 
 
@@ -219,6 +247,8 @@ public class MainWindow extends JFrame {
                 }
                 textFieldResult.setText(textToEnkrypt);
 
+
+
             } else if (event.getSource() == buttonpassword) {
               try{
                   int length = Integer.valueOf(textPasswordLength.getText());
@@ -231,14 +261,21 @@ public class MainWindow extends JFrame {
 
             } else if (event.getSource() == btnExpand) {
                 if (!isExpanded) {
-                    instance.setSize(1200, 150 + (wmList.size() * 40));
+                    instance.setSize(1200, 225 + (wmList.size() * 40));
                     btnExpand.setText("<");
                 } else {
-                    instance.setSize(635, 150 + (wmList.size() * 40));
+                    instance.setSize(635, 225 + (wmList.size() * 40));
                     btnExpand.setText(">");
                 }
                 isExpanded = !isExpanded;
 
+            } else if(event.getSource() == generatehash){
+                try {
+                    textfieldhashoutput.setText(MD5.generatemd5hash(textfieldhashinput.getText()));
+                }
+                catch(Exception e){
+                    System.out.println(e.getMessage());
+                }
             }else if(event.getSource() == buttonpassword){
                 try {
                     textfieldpasswordoutput.setText(passwordgenerator.generatepassword(Integer.valueOf(textPasswordLength.getText())));
@@ -264,6 +301,13 @@ public class MainWindow extends JFrame {
                     instance.reload();
                 }
                 return;
+
+            }else if(event.getSource() == cryptcopy2clipboard){
+                String c = textFieldResult.getText();
+                StringSelection stringSelection = new StringSelection(c);
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+               clipboard.setContents(stringSelection, null);
+
             } else if (event.getSource() == btnDecrypt) {
                 for (int i = 0; i < wmList.size(); i++) {
                     if (!wmList.get(i).isSelected()) {
