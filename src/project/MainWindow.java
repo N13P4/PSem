@@ -1,4 +1,4 @@
-
+package project;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -16,7 +16,6 @@ import project.encryption.Caesar;
 import project.gui.WindowModule;
 
 /**
- * Hauptklasse des ganzen Programms.
  * Sollten sich in den Kommentaren sowohl Rechtschreib- als auch Grammatik- und Satzzeichenfehler finden, möchte ich (Daniel)
  * Eventuelle Schäden meines Gehirns durch das Lesen von "Iphigenie auf Tauris" nicht ausschließen.
  *
