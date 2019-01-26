@@ -303,11 +303,15 @@ public class MainWindow extends JFrame {
                 return;
 
             }else if(event.getSource() == cryptcopy2clipboard){
-                String c = textFieldResult.getText();
-                StringSelection stringSelection = new StringSelection(c);
-                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-               clipboard.setContents(stringSelection, null);
-
+                if(textFieldResult.getText().equals("")){
+                    JFrame popup = new JFrame();
+                    JOptionPane.showMessageDialog(popup, "Nothing to copy");
+                }else {
+                    String c = textFieldResult.getText();
+                    StringSelection stringSelection = new StringSelection(c);
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard.setContents(stringSelection, null);
+                }
             } else if (event.getSource() == btnDecrypt) {
                 for (int i = 0; i < wmList.size(); i++) {
                     if (!wmList.get(i).isSelected()) {
