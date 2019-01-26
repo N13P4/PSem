@@ -17,7 +17,6 @@ import project.encryption.Vigenere;
 import project.encryption.hashing.SHA;
 import project.gui.WindowModule;
 import project.additional.passwordgenerator;
-import project.encryption.hashing.MD5;
 
 /**
  * Sollten sich in den Kommentaren sowohl Rechtschreib- als auch Grammatik- und Satzzeichenfehler finden, möchte ich (Daniel)
@@ -235,7 +234,7 @@ public class MainWindow extends JFrame {
 
                         case "MD5":
                            try{
-                               textToEnkrypt = MD5.generatemd5hash(textToEnkrypt);
+                              // textToEnkrypt = MD.generatemd5hash(textToEnkrypt);
                            }
                            catch(Exception e){
                                System.out.println(e.getMessage());
@@ -272,7 +271,7 @@ public class MainWindow extends JFrame {
 
             } else if(event.getSource() == generatehash){
                 try {
-                    textfieldhashoutput.setText(SHA.getSHA256Hash(textfieldhashinput.getText()));
+                 textfieldhashoutput.setText(SHA.getSHA1Hash(textfieldhashinput.getText()));
                 }
                 catch(Exception e){
                     System.out.println(e.getMessage());

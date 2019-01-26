@@ -22,14 +22,27 @@ public class SHA {
     }
 
 
-
-
-
     public static String getSHA256Hash(String input) throws Exception{
 
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         return getString(input, md);
 
+    }
+
+    public static String getSHA224Hash(String input) throws Exception{
+
+        MessageDigest md = MessageDigest.getInstance("SHA-224");
+        return getString(input, md);
+    }
+
+    public static String getSHA384Hash(String input) throws Exception{
+        MessageDigest md = MessageDigest.getInstance("SHA-384");
+        return getString(input, md);
+    }
+
+    public static String getSHA512Hash(String input) throws Exception{
+        MessageDigest md = MessageDigest.getInstance("SHA-512");
+        return getString(input, md);
     }
 
 }
