@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 
 import project.encryption.AESCipher;
 import project.encryption.Vigenere;
+import project.encryption.hashing.SHA;
 import project.gui.WindowModule;
 import project.additional.passwordgenerator;
 import project.encryption.hashing.MD5;
@@ -271,7 +272,7 @@ public class MainWindow extends JFrame {
 
             } else if(event.getSource() == generatehash){
                 try {
-                    textfieldhashoutput.setText(MD5.generatemd5hash(textfieldhashinput.getText()));
+                    textfieldhashoutput.setText(SHA.getSHA256Hash(textfieldhashinput.getText()));
                 }
                 catch(Exception e){
                     System.out.println(e.getMessage());
