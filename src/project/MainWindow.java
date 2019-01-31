@@ -6,11 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import project.encryption.AESCipher;
 import project.encryption.Vigenere;
@@ -29,7 +25,9 @@ import project.additional.passwordgenerator;
  */
 public class MainWindow extends JFrame {
 
-    private JButton cryptcopy2clipboard;
+    private JCheckBox checkBox1;
+    private JCheckBox checkBox2;
+    private JButton btnCryptcopy2clipboard;
     private JButton generatehash;
     private JLabel hashinput;
     private JLabel hashoutput;
@@ -69,8 +67,12 @@ public class MainWindow extends JFrame {
     }
 
     public void initWindow() {
-        cryptcopy2clipboard = new JButton("Copy");
-        cryptcopy2clipboard.addActionListener(handler);
+        checkBox1 = new JCheckBox();
+        checkBox1.setBounds(300, 300, 10, 10);
+        checkBox2 = new JCheckBox();
+        checkBox2.setBounds(300, 320, 10, 10);
+        btnCryptcopy2clipboard = new JButton("Copy");
+        btnCryptcopy2clipboard.addActionListener(handler);
         generatehash = new JButton("Generate");
         generatehash.setBounds(700, 160, 110, 20);
         generatehash.addActionListener(handler);
@@ -165,16 +167,18 @@ public class MainWindow extends JFrame {
         this.getContentPane().add(textfieldhashinput);
         this.getContentPane().add(textfieldhashoutput);
         this.getContentPane().add(generatehash);
-        this.getContentPane().add(cryptcopy2clipboard);
+        this.getContentPane().add(btnCryptcopy2clipboard);
+        this.getContentPane().add(checkBox1);
+        this.getContentPane().add(checkBox2);
         for (int i = 0; i < wmList.size(); i++) {
             this.getContentPane().add(wmList.get(i));
         }
         textFieldResult.setBounds(60, 50 + (wmList.size() * 40), 325, 20);
         labelResult.setBounds(10, 50 + (wmList.size() * 40), 40, 20);
-        cryptcopy2clipboard.setBounds(10, 80 + (wmList.size() * 40), 100, 20);
+        btnCryptcopy2clipboard.setBounds(10, 80 + (wmList.size() * 40), 100, 20);
         this.getContentPane().add(labelResult);
         this.getContentPane().add(textFieldResult);
-        this.getContentPane().add(cryptcopy2clipboard);
+        this.getContentPane().add(btnCryptcopy2clipboard);
     }
 
 
@@ -302,7 +306,7 @@ public class MainWindow extends JFrame {
                 }
                 return;
 
-            }else if(event.getSource() == cryptcopy2clipboard){
+            }else if(event.getSource() == btnCryptcopy2clipboard){
                 if(textFieldResult.getText().equals("")){
                     JFrame popup = new JFrame();
                     JOptionPane.showMessageDialog(popup, "Nothing to copy");
