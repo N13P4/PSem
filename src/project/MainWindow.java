@@ -25,8 +25,12 @@ import project.additional.passwordgenerator;
  */
 public class MainWindow extends JFrame {
 
-    private JCheckBox checkBox1;
-    private JCheckBox checkBox2;
+    private JLabel MD2label;
+    private JCheckBox MD2checkbox;
+    private JLabel MD5label;
+    private JLabel SHA1label;
+    private JCheckBox MD5checkbox;
+    private JCheckBox SHA1checkbox;
     private JButton btnCryptcopy2clipboard;
     private JButton generatehash;
     private JLabel hashinput;
@@ -67,10 +71,18 @@ public class MainWindow extends JFrame {
     }
 
     public void initWindow() {
-        checkBox1 = new JCheckBox();
-        checkBox1.setBounds(540, 175, 20, 20);
-        checkBox2 = new JCheckBox();
-        checkBox2.setBounds(540, 195, 20, 20);
+        MD2label = new JLabel("MD2");
+        MD2label.setBounds(1130, 100,50,20);
+        MD2checkbox = new JCheckBox();
+        MD2checkbox.setBounds(1110,100,20,20);
+        MD5label = new JLabel("MD5");
+        MD5label.setBounds(1070, 100,50,20);
+        SHA1label = new JLabel("SHA1");
+        SHA1label.setBounds(1070, 125, 50,20);
+        MD5checkbox = new JCheckBox();
+        MD5checkbox.setBounds(1050, 100, 20, 20);
+        SHA1checkbox = new JCheckBox();
+        SHA1checkbox.setBounds(1050, 125, 20, 20);
         btnCryptcopy2clipboard = new JButton("Copy");
         btnCryptcopy2clipboard.addActionListener(handler);
         generatehash = new JButton("Generate");
@@ -168,8 +180,12 @@ public class MainWindow extends JFrame {
         this.getContentPane().add(textfieldhashoutput);
         this.getContentPane().add(generatehash);
         this.getContentPane().add(btnCryptcopy2clipboard);
-        this.getContentPane().add(checkBox1);
-        this.getContentPane().add(checkBox2);
+        this.getContentPane().add(MD5checkbox);
+        this.getContentPane().add(SHA1checkbox);
+        this.getContentPane().add(MD2checkbox);
+        this.getContentPane().add(MD2label);
+        this.getContentPane().add(MD5label);
+        this.getContentPane().add(SHA1label);
         for (int i = 0; i < wmList.size(); i++) {
             this.getContentPane().add(wmList.get(i));
         }
