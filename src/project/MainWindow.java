@@ -68,9 +68,9 @@ public class MainWindow extends JFrame {
 
     public void initWindow() {
         checkBox1 = new JCheckBox();
-        checkBox1.setBounds(300, 300, 10, 10);
+        checkBox1.setBounds(540, 175, 20, 20);
         checkBox2 = new JCheckBox();
-        checkBox2.setBounds(300, 320, 10, 10);
+        checkBox2.setBounds(540, 195, 20, 20);
         btnCryptcopy2clipboard = new JButton("Copy");
         btnCryptcopy2clipboard.addActionListener(handler);
         generatehash = new JButton("Generate");
