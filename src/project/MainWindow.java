@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.*;
+import javax.tools.Tool;
 
 import project.encryption.AESCipher;
 import project.encryption.Vigenere;
@@ -25,7 +26,8 @@ import project.additional.passwordgenerator;
  *
  */
 public class MainWindow extends JFrame {
-
+    private JButton copypassword;
+    private JButton copyhash;
     private JCheckBox SHA224checkbox;
     private JCheckBox SHA256checkbox;
     private JCheckBox SHA384checkbox;
@@ -80,35 +82,39 @@ public class MainWindow extends JFrame {
     }
 
     public void initWindow() {
+        copyhash = new JButton("Copy");
+        copyhash.setBounds(850, 160, 110, 20);
+        copypassword = new JButton("Copy");
+        copypassword.setBounds(850, 60, 110, 20);
         SHA512label = new JLabel("SHA512");
-        SHA512label.setBounds(1070,200,70,20);
+        SHA512label.setBounds(1070, 200, 70, 20);
         SHA512checkbox = new JCheckBox("SHA512");
-        SHA512checkbox.setBounds(1050,200,20,20);
+        SHA512checkbox.setBounds(1050, 200, 20, 20);
         SHA512checkbox.addActionListener(handler);
         SHA384label = new JLabel("SHA384");
-        SHA384label.setBounds(1070,175,70,20);
+        SHA384label.setBounds(1070, 175, 70, 20);
         SHA384checkbox = new JCheckBox();
-        SHA384checkbox.setBounds(1050,175,20,20);
+        SHA384checkbox.setBounds(1050, 175, 20, 20);
         SHA384checkbox.addActionListener(handler);
         SHA256label = new JLabel("SHA256");
-        SHA256label.setBounds(1070,150,70,20);
+        SHA256label.setBounds(1070, 150, 70, 20);
         SHA256checkbox = new JCheckBox();
-        SHA256checkbox.setBounds(1050, 150, 20,20);
+        SHA256checkbox.setBounds(1050, 150, 20, 20);
         SHA256checkbox.addActionListener(handler);
         SHA224label = new JLabel("SHA224");
-        SHA224label.setBounds(1130,125,70,20);
+        SHA224label.setBounds(1130, 125, 70, 20);
         SHA224checkbox = new JCheckBox();
-        SHA224checkbox.setBounds(1110,125,20,20);
+        SHA224checkbox.setBounds(1110, 125, 20, 20);
         SHA224checkbox.addActionListener(handler);
         MD2label = new JLabel("MD2");
-        MD2label.setBounds(1130, 100,50,20);
+        MD2label.setBounds(1130, 100, 50, 20);
         MD2checkbox = new JCheckBox();
-        MD2checkbox.setBounds(1110,100,20,20);
+        MD2checkbox.setBounds(1110, 100, 20, 20);
         MD2checkbox.addActionListener(handler);
         MD5label = new JLabel("MD5");
-        MD5label.setBounds(1070, 100,50,20);
+        MD5label.setBounds(1070, 100, 50, 20);
         SHA1label = new JLabel("SHA1");
-        SHA1label.setBounds(1070, 125, 50,20);
+        SHA1label.setBounds(1070, 125, 50, 20);
         MD5checkbox = new JCheckBox();
         MD5checkbox.setBounds(1050, 100, 20, 20);
         MD5checkbox.addActionListener(handler);
@@ -121,24 +127,24 @@ public class MainWindow extends JFrame {
         generatehash.setBounds(700, 160, 110, 20);
         generatehash.addActionListener(handler);
         hashoutput = new JLabel("Output:");
-        hashoutput.setBounds(700,130,120,20);
+        hashoutput.setBounds(700, 130, 120, 20);
         textfieldhashinput = new JTextField();
-        textfieldhashinput.setBounds(770,100,255,20);
+        textfieldhashinput.setBounds(770, 100, 255, 20);
         textfieldhashoutput = new JTextField();
         textfieldhashoutput.setBounds(770, 130, 255, 20);
         hashinput = new JLabel("Input:");
-        hashinput.setBounds(700,100,120,20);
+        hashinput.setBounds(700, 100, 120, 20);
         buttonpassword = new JButton("Generate");
-        buttonpassword.setBounds(700,60,110,20);
+        buttonpassword.setBounds(700, 60, 110, 20);
         buttonpassword.addActionListener(handler);
         labelpassword = new JLabel("Password:");
-        labelpassword.setBounds(700,35, 125,20);
+        labelpassword.setBounds(700, 35, 125, 20);
         textfieldpasswordoutput = new JTextField();
-        textfieldpasswordoutput.setBounds(835,35,200,20);
+        textfieldpasswordoutput.setBounds(835, 35, 200, 20);
         labelPasswordLength = new JLabel("Password length:");
-        labelPasswordLength.setBounds(700,10,125,20);
+        labelPasswordLength.setBounds(700, 10, 125, 20);
         textPasswordLength = new JTextField();
-        textPasswordLength.setBounds(835,10,200,20);
+        textPasswordLength.setBounds(835, 10, 200, 20);
         textfieldVigenere = new JTextField();
         textfieldVigenere.setBounds(395, 130, 180, 20);
         labelVigenere = new JLabel("Key (numeric):");
@@ -148,6 +154,8 @@ public class MainWindow extends JFrame {
         btnExpand.addActionListener(handler);
         labelInput = new JLabel("Input: ");
         labelInput.setBounds(10, 10, 80, 20);
+        copypassword.addActionListener(handler);
+        copyhash.addActionListener(handler);
         textFieldInput = new JTextField();
         textFieldInput.setBounds(60, 10, 325, 20);
         labelAesKey = new JLabel("En-/Decryption Key: ");
@@ -222,8 +230,10 @@ public class MainWindow extends JFrame {
         this.getContentPane().add(MD5checkbox);
         this.getContentPane().add(SHA224label);
         this.getContentPane().add(SHA1checkbox);
+        this.getContentPane().add(copyhash);
         this.getContentPane().add(MD2checkbox);
         this.getContentPane().add(MD2label);
+        this.getContentPane().add(copypassword);
         this.getContentPane().add(MD5label);
         this.getContentPane().add(SHA1label);
         for (int i = 0; i < wmList.size(); i++) {
@@ -236,8 +246,6 @@ public class MainWindow extends JFrame {
         this.getContentPane().add(textFieldResult);
         this.getContentPane().add(btnCryptcopy2clipboard);
     }
-
-
 
 
     public LinkedList<WindowModule> getWindowModuleList() {
@@ -293,10 +301,9 @@ public class MainWindow extends JFrame {
                             }
 
                         case "MD5":
-                            try{
+                            try {
                                 // textToEncrypt = MD.generatemd5hash(textToEncrypt);
-                            }
-                            catch(Exception e){
+                            } catch (Exception e) {
                                 System.out.println(e.getMessage());
                             }
 
@@ -307,14 +314,32 @@ public class MainWindow extends JFrame {
                 }
                 textFieldResult.setText(textToEncrypt);
 
-
+            } else if (event.getSource() == copypassword) {
+                if (textfieldpasswordoutput.getText().equals("")) {
+                    JFrame popup = new JFrame();
+                    JOptionPane.showMessageDialog(popup, "Nothing to copy");
+                } else {
+                    String c = textfieldpasswordoutput.getText();
+                    StringSelection stringSelection = new StringSelection(c);
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard.setContents(stringSelection, null);
+                }
+            } else if (event.getSource() == copyhash) {
+                if (textfieldhashoutput.getText().equals("")) {
+                    JFrame popup = new JFrame();
+                    JOptionPane.showMessageDialog(popup, "Nothing to copy");
+                } else {
+                    String c = textfieldhashoutput.getText();
+                    StringSelection stringSelection = new StringSelection(c);
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard.setContents(stringSelection, null);
+                }
 
             } else if (event.getSource() == buttonpassword) {
-                try{
+                try {
                     int length = Integer.valueOf(textPasswordLength.getText());
                     textfieldpasswordoutput.setText(passwordgenerator.generatepassword(length));
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     JFrame popup = new JFrame();
                     JOptionPane.showMessageDialog(popup, "Invalid value - Numbers only!");
                 }
@@ -329,54 +354,59 @@ public class MainWindow extends JFrame {
                 }
                 isExpanded = !isExpanded;
 
-            } else if(event.getSource() == generatehash){
-                if(MD2checkbox.isSelected()){
-                    try{
-                        textfieldhashoutput.setText(MD.getMD2Hash(textfieldhashinput.getText()));
-                    }catch(Exception e){
-                        System.out.println(e.getMessage());
-                    }
-                }else if(MD5checkbox.isSelected()){
-                    try{
-                        textfieldhashoutput.setText(MD.getMD5Hash(textfieldhashinput.getText()));
-                    }catch(Exception e){
-                        System.out.println(e.getMessage());
-                    }
-                }else if(SHA1checkbox.isSelected()){
-                    try{
-                        textfieldhashoutput.setText(SHA.getSHA1Hash(textfieldhashinput.getText()));
-                    }catch(Exception e){
-                        System.out.println(e.getMessage());
-                    }
-                }else if(SHA224checkbox.isSelected()){
-                    try{
-                        textfieldhashoutput.setText(SHA.getSHA224Hash(textfieldhashinput.getText()));
-                    }catch(Exception e){
-                        System.out.println(e.getMessage());
-                    }
-                }else if(SHA256checkbox.isSelected()){
-                    try{
-                    textfieldhashoutput.setText(SHA.getSHA256Hash(textfieldhashinput.getText()));
-                    }catch(Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                }else if(SHA384checkbox.isSelected()){
-                    try{
-                        textfieldhashoutput.setText(SHA.getSHA384Hash(textfieldhashinput.getText()));
-                    }catch(Exception e){
-                        System.out.println(e.getMessage());
-                    }
-                }else if(SHA512checkbox.isSelected()){
-                    try{
-                        textfieldhashoutput.setText(SHA.getSHA512Hash(textfieldhashinput.getText()));
-                    }catch(Exception e){
-                        System.out.println(e.getMessage());
+            } else if (event.getSource() == generatehash) {
+                if(checktheboxes() == true){
+                    JFrame popup = new JFrame();
+                    JOptionPane.showMessageDialog(popup, "Select a hashing algorithm!");
+                }else{
+                    if (MD2checkbox.isSelected()) {
+                        try {
+                            textfieldhashoutput.setText(MD.getMD2Hash(textfieldhashinput.getText()));
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else if (MD5checkbox.isSelected()) {
+                        try {
+                            textfieldhashoutput.setText(MD.getMD5Hash(textfieldhashinput.getText()));
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else if (SHA1checkbox.isSelected()) {
+                        try {
+                            textfieldhashoutput.setText(SHA.getSHA1Hash(textfieldhashinput.getText()));
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                     }
+                    } else if (SHA224checkbox.isSelected()) {
+                        try {
+                            textfieldhashoutput.setText(SHA.getSHA224Hash(textfieldhashinput.getText()));
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else if (SHA256checkbox.isSelected()) {
+                        try {
+                            textfieldhashoutput.setText(SHA.getSHA256Hash(textfieldhashinput.getText()));
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                     }
+                    } else if (SHA384checkbox.isSelected()) {
+                        try {
+                            textfieldhashoutput.setText(SHA.getSHA384Hash(textfieldhashinput.getText()));
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else if (SHA512checkbox.isSelected()) {
+                        try {
+                            textfieldhashoutput.setText(SHA.getSHA512Hash(textfieldhashinput.getText()));
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
                     }
                 }
-            }else if(event.getSource() == buttonpassword){
+            } else if (event.getSource() == buttonpassword) {
                 try {
                     textfieldpasswordoutput.setText(passwordgenerator.generatepassword(Integer.valueOf(textPasswordLength.getText())));
-                }catch(Exception e){
+                } catch (Exception e) {
                     System.out.println(e);
                 }
                 /**
@@ -399,11 +429,11 @@ public class MainWindow extends JFrame {
                 }
                 return;
 
-            }else if(event.getSource() == btnCryptcopy2clipboard){
-                if(textFieldResult.getText().equals("")){
+            } else if (event.getSource() == btnCryptcopy2clipboard) {
+                if (textFieldResult.getText().equals("")) {
                     JFrame popup = new JFrame();
                     JOptionPane.showMessageDialog(popup, "Nothing to copy");
-                }else {
+                } else {
                     String c = textFieldResult.getText();
                     StringSelection stringSelection = new StringSelection(c);
                     Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -444,93 +474,93 @@ public class MainWindow extends JFrame {
                     }
                 }
                 textFieldResult.setText(textToDecrypt);
-            } else if(event.getSource() == SHA1checkbox) {
-                if(SHA1checkbox.isSelected()) {
+            } else if (event.getSource() == SHA1checkbox) {
+                if (SHA1checkbox.isSelected()) {
                     MD2checkbox.setEnabled(false);
                     MD5checkbox.setEnabled(false);
                     SHA224checkbox.setEnabled(false);
                     SHA256checkbox.setEnabled(false);
                     SHA384checkbox.setEnabled(false);
                     SHA512checkbox.setEnabled(false);
-                }else{
+                } else {
                     enableall();
                 }
 
-            } else if(event.getSource() == SHA224checkbox) {
-                if(SHA224checkbox.isSelected()){
+            } else if (event.getSource() == SHA224checkbox) {
+                if (SHA224checkbox.isSelected()) {
                     MD2checkbox.setEnabled(false);
                     MD5checkbox.setEnabled(false);
                     SHA1checkbox.setEnabled(false);
                     SHA256checkbox.setEnabled(false);
                     SHA384checkbox.setEnabled(false);
                     SHA512checkbox.setEnabled(false);
-                }else{
+                } else {
                     enableall();
                 }
 
-            } else if(event.getSource() == SHA256checkbox) {
-                if(SHA256checkbox.isSelected()){
+            } else if (event.getSource() == SHA256checkbox) {
+                if (SHA256checkbox.isSelected()) {
                     MD2checkbox.setEnabled(false);
                     MD5checkbox.setEnabled(false);
                     SHA1checkbox.setEnabled(false);
                     SHA224checkbox.setEnabled(false);
                     SHA384checkbox.setEnabled(false);
                     SHA512checkbox.setEnabled(false);
-                }else{
+                } else {
                     enableall();
                 }
 
-            } else if(event.getSource() == SHA384checkbox) {
-                    if(SHA384checkbox.isSelected()){
-                        MD2checkbox.setEnabled(false);
-                        MD5checkbox.setEnabled(false);
-                        SHA1checkbox.setEnabled(false);
-                        SHA224checkbox.setEnabled(false);
-                        SHA256checkbox.setEnabled(false);
-                        SHA512checkbox.setEnabled(false);
-                    }else{
-                        enableall();
-                    }
+            } else if (event.getSource() == SHA384checkbox) {
+                if (SHA384checkbox.isSelected()) {
+                    MD2checkbox.setEnabled(false);
+                    MD5checkbox.setEnabled(false);
+                    SHA1checkbox.setEnabled(false);
+                    SHA224checkbox.setEnabled(false);
+                    SHA256checkbox.setEnabled(false);
+                    SHA512checkbox.setEnabled(false);
+                } else {
+                    enableall();
+                }
 
 
-            } else if(event.getSource() == SHA512checkbox) {
-                if(SHA512checkbox.isSelected()){
+            } else if (event.getSource() == SHA512checkbox) {
+                if (SHA512checkbox.isSelected()) {
                     MD2checkbox.setEnabled(false);
                     MD5checkbox.setEnabled(false);
                     SHA1checkbox.setEnabled(false);
                     SHA224checkbox.setEnabled(false);
                     SHA256checkbox.setEnabled(false);
                     SHA384checkbox.setEnabled(false);
-                }else{
+                } else {
                     enableall();
                 }
-            } else if(event.getSource() == MD2checkbox) {
-                if(MD2checkbox.isSelected()){
+            } else if (event.getSource() == MD2checkbox) {
+                if (MD2checkbox.isSelected()) {
                     MD5checkbox.setEnabled(false);
                     SHA1checkbox.setEnabled(false);
                     SHA224checkbox.setEnabled(false);
                     SHA256checkbox.setEnabled(false);
                     SHA384checkbox.setEnabled(false);
                     SHA512checkbox.setEnabled(false);
-                }else{
+                } else {
                     enableall();
                 }
-            } else if(event.getSource() == MD5checkbox) {
-                if(MD5checkbox.isSelected()){
+            } else if (event.getSource() == MD5checkbox) {
+                if (MD5checkbox.isSelected()) {
                     MD2checkbox.setEnabled(false);
                     SHA1checkbox.setEnabled(false);
                     SHA224checkbox.setEnabled(false);
                     SHA256checkbox.setEnabled(false);
                     SHA384checkbox.setEnabled(false);
                     SHA512checkbox.setEnabled(false);
-                }else{
+                } else {
                     enableall();
                 }
             }
         }
     }
 
-    public void enableall(){
+    public void enableall() {
         MD2checkbox.setEnabled(true);
         MD5checkbox.setEnabled(true);
         SHA1checkbox.setEnabled(true);
@@ -539,6 +569,17 @@ public class MainWindow extends JFrame {
         SHA384checkbox.setEnabled(true);
         SHA512checkbox.setEnabled(true);
     }
+
+    public boolean checktheboxes() {
+        if (MD2checkbox.isSelected() == false && MD5checkbox.isSelected() == false && SHA1checkbox.isSelected() == false && SHA224checkbox.isSelected() == false && SHA256checkbox.isSelected() == false && SHA384checkbox.isSelected() == false && SHA512checkbox.isSelected() == false) {
+          return true;
+        } else{
+            return false;
+        }
+    }
+
+
+
 
     public static void main(String[] args) {
         new MainWindow();
