@@ -83,30 +83,37 @@ public class MainWindow extends JFrame {
         SHA512label.setBounds(1070,200,70,20);
         SHA512checkbox = new JCheckBox("SHA512");
         SHA512checkbox.setBounds(1050,200,20,20);
+        SHA512checkbox.addActionListener(handler);
         SHA384label = new JLabel("SHA384");
         SHA384label.setBounds(1070,175,70,20);
         SHA384checkbox = new JCheckBox();
         SHA384checkbox.setBounds(1050,175,20,20);
+        SHA384checkbox.addActionListener(handler);
         SHA256label = new JLabel("SHA256");
         SHA256label.setBounds(1070,150,70,20);
         SHA256checkbox = new JCheckBox();
         SHA256checkbox.setBounds(1050, 150, 20,20);
+        SHA256checkbox.addActionListener(handler);
         SHA224label = new JLabel("SHA224");
         SHA224label.setBounds(1130,125,70,20);
         SHA224checkbox = new JCheckBox();
         SHA224checkbox.setBounds(1110,125,20,20);
+        SHA224checkbox.addActionListener(handler);
         MD2label = new JLabel("MD2");
         MD2label.setBounds(1130, 100,50,20);
         MD2checkbox = new JCheckBox();
         MD2checkbox.setBounds(1110,100,20,20);
+        MD2checkbox.addActionListener(handler);
         MD5label = new JLabel("MD5");
         MD5label.setBounds(1070, 100,50,20);
         SHA1label = new JLabel("SHA1");
         SHA1label.setBounds(1070, 125, 50,20);
         MD5checkbox = new JCheckBox();
         MD5checkbox.setBounds(1050, 100, 20, 20);
+        MD5checkbox.addActionListener(handler);
         SHA1checkbox = new JCheckBox();
         SHA1checkbox.setBounds(1050, 125, 20, 20);
+        SHA1checkbox.addActionListener(handler);
         btnCryptcopy2clipboard = new JButton("Copy");
         btnCryptcopy2clipboard.addActionListener(handler);
         generatehash = new JButton("Generate");
@@ -399,15 +406,24 @@ public class MainWindow extends JFrame {
                     }
                 }
                 textFieldResult.setText(textToDecrypt);
+            } else if(event.getSource() == SHA1checkbox) {
+
+            } else if(event.getSource() == SHA224checkbox) {
+
+            } else if(event.getSource() == SHA256checkbox) {
+
+            } else if(event.getSource() == SHA384checkbox) {
+
+            } else if(event.getSource() == SHA512checkbox) {
+
+            } else if(event.getSource() == MD2checkbox) {
+
+            } else if(event.getSource() == MD5checkbox) {
+
             }
         }
     }
-
-
     public static void main(String[] args) {
         new MainWindow();
     }
-
-
-
 }
