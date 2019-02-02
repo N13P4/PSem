@@ -10,6 +10,7 @@ import javax.swing.*;
 
 import project.encryption.AESCipher;
 import project.encryption.Vigenere;
+import project.encryption.hashing.MD;
 import project.encryption.hashing.SHA;
 import project.gui.WindowModule;
 import project.additional.passwordgenerator;
@@ -329,11 +330,48 @@ public class MainWindow extends JFrame {
                 isExpanded = !isExpanded;
 
             } else if(event.getSource() == generatehash){
-                try {
-                    textfieldhashoutput.setText(SHA.getSHA1Hash(textfieldhashinput.getText()));
-                }
-                catch(Exception e){
-                    System.out.println(e.getMessage());
+                if(MD2checkbox.isSelected()){
+                    try{
+                        textfieldhashoutput.setText(MD.getMD2Hash(textfieldhashinput.getText()));
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                }else if(MD5checkbox.isSelected()){
+                    try{
+                        textfieldhashoutput.setText(MD.getMD5Hash(textfieldhashinput.getText()));
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                }else if(SHA1checkbox.isSelected()){
+                    try{
+                        textfieldhashoutput.setText(SHA.getSHA1Hash(textfieldhashinput.getText()));
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                }else if(SHA224checkbox.isSelected()){
+                    try{
+                        textfieldhashoutput.setText(SHA.getSHA224Hash(textfieldhashinput.getText()));
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                }else if(SHA256checkbox.isSelected()){
+                    try{
+                    textfieldhashoutput.setText(SHA.getSHA256Hash(textfieldhashinput.getText()));
+                    }catch(Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                }else if(SHA384checkbox.isSelected()){
+                    try{
+                        textfieldhashoutput.setText(SHA.getSHA384Hash(textfieldhashinput.getText()));
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                }else if(SHA512checkbox.isSelected()){
+                    try{
+                        textfieldhashoutput.setText(SHA.getSHA512Hash(textfieldhashinput.getText()));
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
                 }
             }else if(event.getSource() == buttonpassword){
                 try {
@@ -407,22 +445,101 @@ public class MainWindow extends JFrame {
                 }
                 textFieldResult.setText(textToDecrypt);
             } else if(event.getSource() == SHA1checkbox) {
+                if(SHA1checkbox.isSelected()) {
+                    MD2checkbox.setEnabled(false);
+                    MD5checkbox.setEnabled(false);
+                    SHA224checkbox.setEnabled(false);
+                    SHA256checkbox.setEnabled(false);
+                    SHA384checkbox.setEnabled(false);
+                    SHA512checkbox.setEnabled(false);
+                }else{
+                    enableall();
+                }
 
             } else if(event.getSource() == SHA224checkbox) {
+                if(SHA224checkbox.isSelected()){
+                    MD2checkbox.setEnabled(false);
+                    MD5checkbox.setEnabled(false);
+                    SHA1checkbox.setEnabled(false);
+                    SHA256checkbox.setEnabled(false);
+                    SHA384checkbox.setEnabled(false);
+                    SHA512checkbox.setEnabled(false);
+                }else{
+                    enableall();
+                }
 
             } else if(event.getSource() == SHA256checkbox) {
+                if(SHA256checkbox.isSelected()){
+                    MD2checkbox.setEnabled(false);
+                    MD5checkbox.setEnabled(false);
+                    SHA1checkbox.setEnabled(false);
+                    SHA224checkbox.setEnabled(false);
+                    SHA384checkbox.setEnabled(false);
+                    SHA512checkbox.setEnabled(false);
+                }else{
+                    enableall();
+                }
 
             } else if(event.getSource() == SHA384checkbox) {
+                    if(SHA384checkbox.isSelected()){
+                        MD2checkbox.setEnabled(false);
+                        MD5checkbox.setEnabled(false);
+                        SHA1checkbox.setEnabled(false);
+                        SHA224checkbox.setEnabled(false);
+                        SHA256checkbox.setEnabled(false);
+                        SHA512checkbox.setEnabled(false);
+                    }else{
+                        enableall();
+                    }
+
 
             } else if(event.getSource() == SHA512checkbox) {
-
+                if(SHA512checkbox.isSelected()){
+                    MD2checkbox.setEnabled(false);
+                    MD5checkbox.setEnabled(false);
+                    SHA1checkbox.setEnabled(false);
+                    SHA224checkbox.setEnabled(false);
+                    SHA256checkbox.setEnabled(false);
+                    SHA384checkbox.setEnabled(false);
+                }else{
+                    enableall();
+                }
             } else if(event.getSource() == MD2checkbox) {
-
+                if(MD2checkbox.isSelected()){
+                    MD5checkbox.setEnabled(false);
+                    SHA1checkbox.setEnabled(false);
+                    SHA224checkbox.setEnabled(false);
+                    SHA256checkbox.setEnabled(false);
+                    SHA384checkbox.setEnabled(false);
+                    SHA512checkbox.setEnabled(false);
+                }else{
+                    enableall();
+                }
             } else if(event.getSource() == MD5checkbox) {
-
+                if(MD5checkbox.isSelected()){
+                    MD2checkbox.setEnabled(false);
+                    SHA1checkbox.setEnabled(false);
+                    SHA224checkbox.setEnabled(false);
+                    SHA256checkbox.setEnabled(false);
+                    SHA384checkbox.setEnabled(false);
+                    SHA512checkbox.setEnabled(false);
+                }else{
+                    enableall();
+                }
             }
         }
     }
+
+    public void enableall(){
+        MD2checkbox.setEnabled(true);
+        MD5checkbox.setEnabled(true);
+        SHA1checkbox.setEnabled(true);
+        SHA224checkbox.setEnabled(true);
+        SHA256checkbox.setEnabled(true);
+        SHA384checkbox.setEnabled(true);
+        SHA512checkbox.setEnabled(true);
+    }
+
     public static void main(String[] args) {
         new MainWindow();
     }
