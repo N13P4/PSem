@@ -216,11 +216,11 @@ public class MainWindow extends JFrame {
                         return;
                     }
                 }
-                String textToEnkrypt = textFieldInput.getText();
+                String textToEncrypt = textFieldInput.getText();
                 for (int i = 0; i < wmList.size(); i++) {
                     switch (wmList.get(i).getSelected()) {
                         case "Vigenere 2.0":
-                            textToEnkrypt = Vigenere.encrypt(textToEnkrypt, Integer.valueOf(textfieldVigenere.getText()));
+                            textToEncrypt = Vigenere.encrypt(textToEncrypt, Integer.valueOf(textfieldVigenere.getText()));
                             // Verschlüsselt mit Vigenere
                             break;
                         case "AES":
@@ -229,7 +229,7 @@ public class MainWindow extends JFrame {
                                 JOptionPane.showMessageDialog(popup, "Key must have a length of 16 chars.\nCurrent length is " + textFieldAesKey.getText().length());
                             }
                             try {
-                                textToEnkrypt = AESCipher.aesEncryptString(textToEnkrypt, textFieldAesKey.getText());
+                                textToEncrypt = AESCipher.aesEncryptString(textToEncrypt, textFieldAesKey.getText());
                                 //Verschlüsselt mit AES
                                 break;
                             } catch (Exception e) {
@@ -237,31 +237,31 @@ public class MainWindow extends JFrame {
                             }
 
                         case "MD5":
-                           try{
-                              // textToEnkrypt = MD.generatemd5hash(textToEnkrypt);
-                           }
-                           catch(Exception e){
-                               System.out.println(e.getMessage());
-                           }
+                            try{
+                                // textToEncrypt = MD.generatemd5hash(textToEncrypt);
+                            }
+                            catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
 
                             break;
                         default:
                             break;
                     }
                 }
-                textFieldResult.setText(textToEnkrypt);
+                textFieldResult.setText(textToEncrypt);
 
 
 
             } else if (event.getSource() == buttonpassword) {
-              try{
-                  int length = Integer.valueOf(textPasswordLength.getText());
-                  textfieldpasswordoutput.setText(passwordgenerator.generatepassword(length));
-              }
-              catch(Exception e){
-                  JFrame popup = new JFrame();
-                  JOptionPane.showMessageDialog(popup, "Invalid value - Numbers only!");
-              }
+                try{
+                    int length = Integer.valueOf(textPasswordLength.getText());
+                    textfieldpasswordoutput.setText(passwordgenerator.generatepassword(length));
+                }
+                catch(Exception e){
+                    JFrame popup = new JFrame();
+                    JOptionPane.showMessageDialog(popup, "Invalid value - Numbers only!");
+                }
 
             } else if (event.getSource() == btnExpand) {
                 if (!isExpanded) {
@@ -275,7 +275,7 @@ public class MainWindow extends JFrame {
 
             } else if(event.getSource() == generatehash){
                 try {
-                 textfieldhashoutput.setText(SHA.getSHA1Hash(textfieldhashinput.getText()));
+                    textfieldhashoutput.setText(SHA.getSHA1Hash(textfieldhashinput.getText()));
                 }
                 catch(Exception e){
                     System.out.println(e.getMessage());
@@ -323,11 +323,11 @@ public class MainWindow extends JFrame {
                         return;
                     }
                 }
-                String textToDekrypt = textFieldInput.getText();
+                String textToDecrypt = textFieldInput.getText();
                 for (int i = 0; i < wmList.size(); i++) {
                     switch (wmList.get(i).getSelected()) {
                         case "Vigenere 2.0":
-                            textToDekrypt = Vigenere.decrypt(textToDekrypt, Integer.valueOf(textfieldVigenere.getText()));
+                            textToDecrypt = Vigenere.decrypt(textToDecrypt, Integer.valueOf(textfieldVigenere.getText()));
 
                             break;
                         case "AES":
@@ -336,7 +336,7 @@ public class MainWindow extends JFrame {
                                 JOptionPane.showMessageDialog(popup, "Key must have a length of 16 chars.\nCurrent length is " + textFieldAesKey.getText().length());
                             }
                             try {
-                                textToDekrypt = AESCipher.aesDecryptString(textToDekrypt, textFieldAesKey.getText());
+                                textToDecrypt = AESCipher.aesDecryptString(textToDecrypt, textFieldAesKey.getText());
                                 //Verschlüsselt mit AES
                                 break;
                             } catch (Exception e) {
@@ -350,7 +350,7 @@ public class MainWindow extends JFrame {
                             break;
                     }
                 }
-                textFieldResult.setText(textToDekrypt);
+                textFieldResult.setText(textToDecrypt);
             }
         }
     }
