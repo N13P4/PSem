@@ -25,6 +25,14 @@ import project.additional.passwordgenerator;
  */
 public class MainWindow extends JFrame {
 
+    private JCheckBox SHA224checkbox;
+    private JCheckBox SHA256checkbox;
+    private JCheckBox SHA384checkbox;
+    private JCheckBox SHA512checkbox;
+    private JLabel SHA224label;
+    private JLabel SHA384label;
+    private JLabel SHA256label;
+    private JLabel SHA512label;
     private JLabel MD2label;
     private JCheckBox MD2checkbox;
     private JLabel MD5label;
@@ -71,6 +79,22 @@ public class MainWindow extends JFrame {
     }
 
     public void initWindow() {
+        SHA512label = new JLabel("SHA512");
+        SHA512label.setBounds(1070,200,70,20);
+        SHA512checkbox = new JCheckBox("SHA512");
+        SHA512checkbox.setBounds(1050,200,20,20);
+        SHA384label = new JLabel("SHA384");
+        SHA384label.setBounds(1070,175,70,20);
+        SHA384checkbox = new JCheckBox();
+        SHA384checkbox.setBounds(1050,175,20,20);
+        SHA256label = new JLabel("SHA256");
+        SHA256label.setBounds(1070,150,70,20);
+        SHA256checkbox = new JCheckBox();
+        SHA256checkbox.setBounds(1050, 150, 20,20);
+        SHA224label = new JLabel("SHA224");
+        SHA224label.setBounds(1130,125,70,20);
+        SHA224checkbox = new JCheckBox();
+        SHA224checkbox.setBounds(1110,125,20,20);
         MD2label = new JLabel("MD2");
         MD2label.setBounds(1130, 100,50,20);
         MD2checkbox = new JCheckBox();
@@ -174,13 +198,21 @@ public class MainWindow extends JFrame {
         this.getContentPane().add(textfieldpasswordoutput);
         this.getContentPane().add(labelpassword);
         this.getContentPane().add(buttonpassword);
+        this.getContentPane().add(SHA512label);
+        this.getContentPane().add(SHA224checkbox);
+        this.getContentPane().add(SHA256checkbox);
         this.getContentPane().add(hashinput);
         this.getContentPane().add(hashoutput);
+        this.getContentPane().add(SHA384checkbox);
+        this.getContentPane().add(SHA512checkbox);
         this.getContentPane().add(textfieldhashinput);
+        this.getContentPane().add(SHA384label);
         this.getContentPane().add(textfieldhashoutput);
         this.getContentPane().add(generatehash);
+        this.getContentPane().add(SHA256label);
         this.getContentPane().add(btnCryptcopy2clipboard);
         this.getContentPane().add(MD5checkbox);
+        this.getContentPane().add(SHA224label);
         this.getContentPane().add(SHA1checkbox);
         this.getContentPane().add(MD2checkbox);
         this.getContentPane().add(MD2label);
