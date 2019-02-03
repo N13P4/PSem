@@ -6,20 +6,20 @@ public class Vigenere {
 
 
 	public static String encrypt(String input, int key) {
-		String enc = "";
+		StringBuilder enc = new StringBuilder();
 		for (int i = 0; i < input.length(); i++){
 			char ch = (char)(input.codePointAt(i) + key);
-			enc += ch;
+			enc.append(ch);
 		}
-		return enc;
+		return enc.toString();
 	}
 	public static String decrypt(String input, int key) {
-		String dec = "";
+		StringBuilder dec = new StringBuilder();
 		for (int i = 0; i < input.length(); i++){
 			char ch = (char)(input.codePointAt(i) - key);
-			dec += ch;
+			dec.append(ch);
 		}
-		return dec;
+		return dec.toString();
 	}
 
 
