@@ -232,6 +232,9 @@ public class MainWindow extends JFrame {
         this.getContentPane().add(textfieldpasswordoutput);
         this.getContentPane().add(textfieldVigenere);
         this.getContentPane().add(textPasswordLength);
+        this.getContentPane().add(labelResult);
+        this.getContentPane().add(textFieldResult);
+        this.getContentPane().add(btnCryptcopy2clipboard);
         this.getContentPane().setLayout(null);
         this.setSize(635, 225 + (wmList.size() * 40));
         for (int i = 0; i < wmList.size(); i++) {
@@ -240,9 +243,6 @@ public class MainWindow extends JFrame {
         textFieldResult.setBounds(60, 50 + (wmList.size() * 40), 325, 20);
         labelResult.setBounds(10, 50 + (wmList.size() * 40), 40, 20);
         btnCryptcopy2clipboard.setBounds(10, 80 + (wmList.size() * 40), 100, 20);
-        this.getContentPane().add(labelResult);
-        this.getContentPane().add(textFieldResult);
-        this.getContentPane().add(btnCryptcopy2clipboard);
     }
 
 
@@ -353,7 +353,8 @@ public class MainWindow extends JFrame {
                 isExpanded = !isExpanded;
 
             } else if (event.getSource() == generatehash) {
-                if(checktheboxes() == true){
+                //Checks if a checkbox is selected - if not a message will pop up
+                if(checktheboxes()){
                     JFrame popup = new JFrame();
                     JOptionPane.showMessageDialog(popup, "Select a hashing algorithm!");
                 }else{
@@ -403,6 +404,7 @@ public class MainWindow extends JFrame {
                 }
             } else if (event.getSource() == buttonpassword) {
                 try {
+                    //Generates a password using the given length from "textPasswordLength"
                     textfieldpasswordoutput.setText(passwordgenerator.generatepassword(Integer.valueOf(textPasswordLength.getText())));
                 } catch (Exception e) {
                     System.out.println(e);
@@ -428,6 +430,7 @@ public class MainWindow extends JFrame {
                 return;
 
             } else if (event.getSource() == btnCryptcopy2clipboard) {
+                //Copies the text from "textFieldResult" to your clipboard - if the textfield is empty a message will pop up
                 if (textFieldResult.getText().equals("")) {
                     JFrame popup = new JFrame();
                     JOptionPane.showMessageDialog(popup, "Nothing to copy");
@@ -472,6 +475,12 @@ public class MainWindow extends JFrame {
                     }
                 }
                 textFieldResult.setText(textToDecrypt);
+
+                /**
+                If a checkbox is selected all the other checkboxes will be disabled and you are not able to select them anymore
+                If you deselect the checkbox again the method "enableall()" will enable all checkboxes again
+                 **/
+
             } else if (event.getSource() == SHA1checkbox) {
                 if (SHA1checkbox.isSelected()) {
                     MD2checkbox.setEnabled(false);
@@ -559,6 +568,7 @@ public class MainWindow extends JFrame {
     }
 
     public void enableall() {
+        //Enables all checkboxes again
         MD2checkbox.setEnabled(true);
         MD5checkbox.setEnabled(true);
         SHA1checkbox.setEnabled(true);
@@ -569,7 +579,8 @@ public class MainWindow extends JFrame {
     }
 
     public boolean checktheboxes() {
-        if (MD2checkbox.isSelected() == false && MD5checkbox.isSelected() == false && SHA1checkbox.isSelected() == false && SHA224checkbox.isSelected() == false && SHA256checkbox.isSelected() == false && SHA384checkbox.isSelected() == false && SHA512checkbox.isSelected() == false) {
+        //Checks if no checkbox is selected (used above on the create hash method)
+        if (!MD2checkbox.isSelected() && !MD5checkbox.isSelected() && !SHA1checkbox.isSelected() && !SHA224checkbox.isSelected() && !SHA256checkbox.isSelected() && !SHA384checkbox.isSelected() && !SHA512checkbox.isSelected()) {
           return true;
         } else{
             return false;
