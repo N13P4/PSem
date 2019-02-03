@@ -9,7 +9,7 @@ public class SHA {
     @NotNull
     private static String getString(String input, MessageDigest md) {
         byte[] result = md.digest(input.getBytes());
-        StringBuffer SB = new StringBuffer();
+        StringBuilder SB = new StringBuilder();
         for (byte b : result) {
 
             SB.append(Integer.toString((b & 0xff) + 0x100, 16).substring(1));
