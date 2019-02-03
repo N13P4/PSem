@@ -417,7 +417,6 @@ public class MainWindow extends JFrame {
                     instance.getWindowModuleList().add(new WindowModule(instance.getWindowModuleList().size(), 40));
                     instance.reload();
                 }
-                return;
                 /**
                  * Entfernt ein Verschlüsselungsmodul, solange die Anzahl der vorhandenen Module > 1 ist.
                  */
@@ -576,9 +575,7 @@ public class MainWindow extends JFrame {
 
     private boolean checktheboxes() {
         //Checks if no checkbox is selected (used above on the create hash method)
-        if (!MD2checkbox.isSelected() && !MD5checkbox.isSelected() && !SHA1checkbox.isSelected() && !SHA224checkbox.isSelected() && !SHA256checkbox.isSelected() && !SHA384checkbox.isSelected() && !SHA512checkbox.isSelected()) {
-          return true;
-        } else return false;
+        return !MD2checkbox.isSelected() && !MD5checkbox.isSelected() && !SHA1checkbox.isSelected() && !SHA224checkbox.isSelected() && !SHA256checkbox.isSelected() && !SHA384checkbox.isSelected() && !SHA512checkbox.isSelected();
     }
 
 
