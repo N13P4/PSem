@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 
 public class MD {
 
-    public static String getString(String input, MessageDigest md) {
+    private static String getString(String input, MessageDigest md) {
         byte[] hashinbytes = md.digest(input.getBytes(StandardCharsets.UTF_8));
 
         StringBuilder sb = new StringBuilder();

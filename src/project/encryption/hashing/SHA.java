@@ -1,10 +1,13 @@
 package project.encryption.hashing;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.security.MessageDigest;
 
 public class SHA {
 
-    public static String getString(String input, MessageDigest md) throws Exception {
+    @NotNull
+    private static String getString(String input, MessageDigest md) {
         byte[] result = md.digest(input.getBytes());
         StringBuffer SB = new StringBuffer();
         for (byte b : result) {

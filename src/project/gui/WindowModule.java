@@ -74,7 +74,6 @@ public class WindowModule extends JPanel{
 					cb2.setEnabled(true);
 					cb3.setEnabled(true);
 				}
-				return;
 			} else if(event.getSource() == cb2) {
 				if(cb2.isSelected()) {
 					cb1.setEnabled(false);
@@ -83,7 +82,6 @@ public class WindowModule extends JPanel{
 					cb1.setEnabled(true);
 					cb3.setEnabled(true);
 				}
-				return;
 			} else if(event.getSource() == cb3) {
 				if(cb3.isSelected()) {
 					cb1.setEnabled(false);
@@ -92,8 +90,7 @@ public class WindowModule extends JPanel{
 					cb1.setEnabled(true);
 					cb2.setEnabled(true);
 				}
-				return;
-			} 
+			}
 		}
 		
 	}

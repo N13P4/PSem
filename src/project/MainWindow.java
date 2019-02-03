@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
 import javax.swing.*;
-import javax.tools.Tool;
 
 import project.encryption.AESCipher;
 import project.encryption.Vigenere;
@@ -73,13 +72,13 @@ public class MainWindow extends JFrame {
     /**
      * Konstruktor der Hauptklasse des ganzen Programms.
      */
-    public MainWindow() {
+    private MainWindow() {
         handler = new EventHandler(this);
         wmList = new LinkedList<>();
         initWindow();
     }
 
-    public void initWindow() {
+    private void initWindow() {
         btnCryptcopy2clipboard = new JButton("Copy");
         btnCryptcopy2clipboard.addActionListener(handler);
         btnDecrypt = new JButton("Decrypt");
@@ -192,7 +191,7 @@ public class MainWindow extends JFrame {
      * Wird auch im Konstruktor verwendet, um redundanten Code zu vermeiden.
      */
     @SuppressWarnings("Duplicates")
-    public void reload() {
+    private void reload() {
         this.getContentPane().removeAll();
         this.getContentPane().add(btnCryptcopy2clipboard);
         this.getContentPane().add(btnDecrypt);
@@ -237,8 +236,8 @@ public class MainWindow extends JFrame {
         this.getContentPane().add(btnCryptcopy2clipboard);
         this.getContentPane().setLayout(null);
         this.setSize(635, 225 + (wmList.size() * 40));
-        for (int i = 0; i < wmList.size(); i++) {
-            this.getContentPane().add(wmList.get(i));
+        for (WindowModule windowModule : wmList) {
+            this.getContentPane().add(windowModule);
         }
         textFieldResult.setBounds(60, 50 + (wmList.size() * 40), 325, 20);
         labelResult.setBounds(10, 50 + (wmList.size() * 40), 40, 20);
@@ -246,7 +245,7 @@ public class MainWindow extends JFrame {
     }
 
 
-    public LinkedList<WindowModule> getWindowModuleList() {
+    private LinkedList<WindowModule> getWindowModuleList() {
         return wmList;
     }
 
@@ -259,7 +258,7 @@ public class MainWindow extends JFrame {
         //Instanz/Referenz zur Hauptklasse
         private final MainWindow instance;
 
-        public EventHandler(MainWindow instance) {
+        EventHandler(MainWindow instance) {
             this.instance = instance;
         }
 
@@ -272,15 +271,15 @@ public class MainWindow extends JFrame {
              * Und gibt in dann über das unter JTextField aus.
              */
             if (event.getSource() == btnEncrypt) {
-                for (int i = 0; i < wmList.size(); i++) {
-                    if (!wmList.get(i).isSelected()) {
+                for (WindowModule windowModule : wmList) {
+                    if (!windowModule.isSelected()) {
                         JOptionPane.showMessageDialog(instance, "Alle Module müssen angekreuzt sein!");
                         return;
                     }
                 }
                 String textToEncrypt = textFieldInput.getText();
-                for (int i = 0; i < wmList.size(); i++) {
-                    switch (wmList.get(i).getSelected()) {
+                for (WindowModule windowModule : wmList) {
+                    switch (windowModule.getSelected()) {
                         case "Vigenere 2.0":
                             textToEncrypt = Vigenere.encrypt(textToEncrypt, Integer.valueOf(textfieldVigenere.getText()));
                             // Verschlüsselt mit Vigenere
@@ -427,7 +426,6 @@ public class MainWindow extends JFrame {
                     instance.getWindowModuleList().removeLast();
                     instance.reload();
                 }
-                return;
 
             } else if (event.getSource() == btnCryptcopy2clipboard) {
                 //Copies the text from "textFieldResult" to your clipboard - if the textfield is empty a message will pop up
@@ -441,15 +439,13 @@ public class MainWindow extends JFrame {
                     clipboard.setContents(stringSelection, null);
                 }
             } else if (event.getSource() == btnDecrypt) {
-                for (int i = 0; i < wmList.size(); i++) {
-                    if (!wmList.get(i).isSelected()) {
+                for (WindowModule windowModule1 : wmList)
+                    if (!windowModule1.isSelected()) {
                         JOptionPane.showMessageDialog(instance, "Alle Module müssen angekreuzt sein!");
-                        return;
                     }
-                }
                 String textToDecrypt = textFieldInput.getText();
-                for (int i = 0; i < wmList.size(); i++) {
-                    switch (wmList.get(i).getSelected()) {
+                for (WindowModule windowModule : wmList) {
+                    switch (windowModule.getSelected()) {
                         case "Vigenere 2.0":
                             textToDecrypt = Vigenere.decrypt(textToDecrypt, Integer.valueOf(textfieldVigenere.getText()));
 
@@ -567,7 +563,7 @@ public class MainWindow extends JFrame {
         }
     }
 
-    public void enableall() {
+    private void enableall() {
         //Enables all checkboxes again
         MD2checkbox.setEnabled(true);
         MD5checkbox.setEnabled(true);
@@ -578,13 +574,11 @@ public class MainWindow extends JFrame {
         SHA512checkbox.setEnabled(true);
     }
 
-    public boolean checktheboxes() {
+    private boolean checktheboxes() {
         //Checks if no checkbox is selected (used above on the create hash method)
         if (!MD2checkbox.isSelected() && !MD5checkbox.isSelected() && !SHA1checkbox.isSelected() && !SHA224checkbox.isSelected() && !SHA256checkbox.isSelected() && !SHA384checkbox.isSelected() && !SHA512checkbox.isSelected()) {
           return true;
-        } else{
-            return false;
-        }
+        } else return false;
     }
 
 

@@ -28,11 +28,11 @@ public class AESCipher {
 		return new String(decryptedBytes, charset);
 	}
 
-	public static byte[] aesEncryptBytes(byte[] contentBytes, byte[] keyBytes) throws Exception {
+	private static byte[] aesEncryptBytes(byte[] contentBytes, byte[] keyBytes) throws Exception {
 		return cipherOperation(contentBytes, keyBytes, Cipher.ENCRYPT_MODE);
 	}
 
-	public static byte[] aesDecryptBytes(byte[] contentBytes, byte[] keyBytes) throws Exception{
+	private static byte[] aesDecryptBytes(byte[] contentBytes, byte[] keyBytes) throws Exception{
 		return cipherOperation(contentBytes, keyBytes, Cipher.DECRYPT_MODE);
 	}
 
