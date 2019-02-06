@@ -235,13 +235,17 @@ public class MainWindow extends JFrame {
         this.getContentPane().add(textFieldResult);
         this.getContentPane().add(btnCryptcopy2clipboard);
         this.getContentPane().setLayout(null);
-        this.setSize(635, 225 + (wmList.size() * 40));
+        if(!isExpanded) {
+            this.setSize(635, 225 + (wmList.size() * 70));
+        } else {
+            this.setSize(1200, 225 + (wmList.size() * 70));
+        }
         for (WindowModule windowModule : wmList) {
             this.getContentPane().add(windowModule);
         }
-        textFieldResult.setBounds(60, 50 + (wmList.size() * 40), 325, 20);
-        labelResult.setBounds(10, 50 + (wmList.size() * 40), 40, 20);
-        btnCryptcopy2clipboard.setBounds(10, 80 + (wmList.size() * 40), 100, 20);
+        textFieldResult.setBounds(60, 50 + (wmList.size() * 70), 325, 20);
+        labelResult.setBounds(10, 50 + (wmList.size() * 70), 40, 20);
+        btnCryptcopy2clipboard.setBounds(10, 80 + (wmList.size() * 70), 100, 20);
     }
 
 
@@ -343,10 +347,10 @@ public class MainWindow extends JFrame {
 
             } else if (event.getSource() == btnExpand) {
                 if (!isExpanded) {
-                    instance.setSize(1200, 225 + (wmList.size() * 40));
+                    instance.setSize(1200, 225 + (wmList.size() * 70));
                     btnExpand.setText("<");
                 } else {
-                    instance.setSize(635, 225 + (wmList.size() * 40));
+                    instance.setSize(635, 225 + (wmList.size() * 70));
                     btnExpand.setText(">");
                 }
                 isExpanded = !isExpanded;

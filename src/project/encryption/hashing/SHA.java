@@ -1,12 +1,9 @@
 package project.encryption.hashing;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.security.MessageDigest;
 
 public class SHA {
 
-    @NotNull
     private static String getString(String input, MessageDigest md) {
         byte[] result = md.digest(input.getBytes());
         StringBuilder SB = new StringBuilder();

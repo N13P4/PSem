@@ -1,11 +1,10 @@
 package project.gui;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * 
@@ -14,21 +13,34 @@ import javax.swing.JPanel;
  */
 public class WindowModule extends JPanel{
 	
-	private WindowModule next;
-	
 	private JCheckBox cb1;
 	private JCheckBox cb2;
 	private JCheckBox cb3;
+
+	private JLabel lblKey;
+	private JTextField txtKey;
 	
 	public WindowModule(int pos, int space) {
 		
 		this.setBackground(Color.DARK_GRAY);
-		this.setBounds(10, 40 * pos + space, 375, 40);
+		this.setBounds(10, 70 * pos + space, 375, 70);
+		this.setLayout(null);
 		
 		cb1 = new JCheckBox("Vigenere 2.0");
 		cb2 = new JCheckBox("AES");
 		cb3 = new JCheckBox("NOT IMPLEMENTED");
-		
+
+		lblKey = new JLabel("Key: ");
+		lblKey.setForeground(Color.WHITE);
+		txtKey = new JTextField();
+
+		cb1.setBounds(10, 10, 105, 20);
+		cb2.setBounds(125, 10, 75, 20);
+		cb3.setBounds(210, 10, 150, 20);
+
+		lblKey.setBounds(10, 40, 50, 20);
+		txtKey.setBounds(70, 40, 150, 20);
+
 		EventHandler handler = new EventHandler();
 		
 		cb1.addActionListener(handler);
@@ -38,6 +50,9 @@ public class WindowModule extends JPanel{
 		this.add(cb1);
 		this.add(cb2);
 		this.add(cb3);
+
+		this.add(lblKey);
+		this.add(txtKey);
 		
 		
 	}
@@ -51,14 +66,6 @@ public class WindowModule extends JPanel{
 		else if(cb2.isSelected()) return cb2.getText();
 		else if(cb3.isSelected()) return cb3.getText();
 		else return null;
-	}
-	
-	public WindowModule getNext() {
-		return next;
-	}
-	
-	public void setNext(WindowModule next) {
-		this.next = next;
 	}
 	
 	@SuppressWarnings("Duplicates")
