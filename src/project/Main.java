@@ -43,18 +43,19 @@ public class Main implements ActionListener {
             }
             String textToEncrypt = instance.getTextFieldInput().getText();
             for (WindowModule windowModule : instance.getWmList()) {
+                String key = windowModule.getKey();
                 switch (windowModule.getSelected()) {
                     case "Vigenere 2.0":
-                        textToEncrypt = Vigenere.encrypt(textToEncrypt, Integer.valueOf(instance.getTextfieldVigenere().getText()));
+                        textToEncrypt = Vigenere.encrypt(textToEncrypt, Integer.valueOf(key));
                         // Verschlüsselt mit Vigenere
                         break;
                     case "AES":
-                        if (instance.getTextFieldAesKey().getText().length() != 16) {
+                        if (key.length() != 16) {
                             JFrame popup = new JFrame();
-                            JOptionPane.showMessageDialog(popup, "Key must have a length of 16 chars.\nCurrent length is " + instance.getTextFieldAesKey().getText().length());
+                            JOptionPane.showMessageDialog(popup, "Key must have a length of 16 chars.\nCurrent length is " + key.length());
                         }
                         try {
-                            textToEncrypt = AESCipher.aesEncryptString(textToEncrypt, instance.getTextFieldAesKey().getText());
+                            textToEncrypt = AESCipher.aesEncryptString(textToEncrypt, key);
                             //Verschlüsselt mit AES
                             break;
                         } catch (Exception e) {

@@ -56,6 +56,10 @@ public class WindowModule extends JPanel{
 		
 		
 	}
+
+	public String getKey() {
+		return txtKey.getText();
+	}
 	
 	public boolean isSelected() {
 		return cb1.isSelected() || cb2.isSelected() || cb3.isSelected();
