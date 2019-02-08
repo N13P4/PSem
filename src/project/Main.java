@@ -1,6 +1,6 @@
 package project;
 
-import project.additional.passwordgenerator;
+import project.additional.Passwordgenerator;
 import project.encryption.AESCipher;
 import project.encryption.Vigenere;
 import project.encryption.hashing.MD;
@@ -13,8 +13,11 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Main implements ActionListener {
+
+    JFrame popup = new JFrame();
 
     public static void main(String[] args) {
         new Main();
@@ -35,50 +38,9 @@ public class Main implements ActionListener {
          * Und gibt in dann über das unter JTextField aus.
          */
         if (event.getSource() == instance.getBtnEncrypt()) {
-            for (WindowModule windowModule : instance.getWmList()) {
-                if (!windowModule.isSelected()) {
-                    JOptionPane.showMessageDialog(instance, "Alle Module müssen angekreuzt sein!");
-                    return;
-                }
-            }
-            String textToEncrypt = instance.getTextFieldInput().getText();
-            for (WindowModule windowModule : instance.getWmList()) {
-                String key = windowModule.getKey();
-                switch (windowModule.getSelected()) {
-                    case "Vigenere 2.0":
-                        textToEncrypt = Vigenere.encrypt(textToEncrypt, Integer.valueOf(key));
-                        // Verschlüsselt mit Vigenere
-                        break;
-                    case "AES":
-                        if (key.length() != 16) {
-                            JFrame popup = new JFrame();
-                            JOptionPane.showMessageDialog(popup, "Key must have a length of 16 chars.\nCurrent length is " + key.length());
-                        }
-                        try {
-                            textToEncrypt = AESCipher.aesEncryptString(textToEncrypt, key);
-                            //Verschlüsselt mit AES
-                            break;
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-
-                    case "MD5":
-                        try {
-                            // textToEncrypt = MD.generatemd5hash(textToEncrypt);
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-
-                        break;
-                    default:
-                        break;
-                }
-            }
-            instance.getTextFieldResult().setText(textToEncrypt);
-
+            btnencryptmethod();
         } else if (event.getSource() == instance.getCopypassword()) {
             if (instance.getTextfieldpasswordoutput().getText().equals("")) {
-                JFrame popup = new JFrame();
                 JOptionPane.showMessageDialog(popup, "Nothing to copy");
             } else {
                 String c = instance.getTextfieldpasswordoutput().getText();
@@ -88,7 +50,6 @@ public class Main implements ActionListener {
             }
         } else if (event.getSource() == instance.getCopyhash()) {
             if (instance.getTextfieldhashoutput().getText().equals("")) {
-                JFrame popup = new JFrame();
                 JOptionPane.showMessageDialog(popup, "Nothing to copy");
             } else {
                 String c = instance.getTextfieldhashoutput().getText();
@@ -99,10 +60,8 @@ public class Main implements ActionListener {
 
         } else if (event.getSource() == instance.getButtonpassword()) {
             try {
-                int length = Integer.valueOf(instance.getTextPasswordLength().getText());
-                instance.getTextfieldpasswordoutput().setText(passwordgenerator.generatepassword(length));
-            } catch (Exception e) {
-                JFrame popup = new JFrame();
+                instance.getTextfieldpasswordoutput().setText(Passwordgenerator.generatepassword(Integer.valueOf(instance.getTextPasswordLength().getText())));
+            } catch (IOException ioe) {
                 JOptionPane.showMessageDialog(popup, "Invalid value - Numbers only!");
             }
 
@@ -117,62 +76,9 @@ public class Main implements ActionListener {
             instance.setExpanded(!instance.isExpanded());
 
         } else if (event.getSource() == instance.getGeneratehash()) {
-            //Checks if a checkbox is selected - if not a message will pop up
-            if(checktheboxes()){
-                JFrame popup = new JFrame();
-                JOptionPane.showMessageDialog(popup, "Select a hashing algorithm!");
-            }else{
-                if (instance.getMD2checkbox().isSelected()) {
-                    try {
-                        instance.getTextfieldhashoutput().setText(MD.getMD2Hash(instance.getTextfieldhashinput().getText()));
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                } else if (instance.getMD5checkbox().isSelected()) {
-                    try {
-                        instance.getTextfieldhashoutput().setText(MD.getMD5Hash(instance.getTextfieldhashinput().getText()));
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                } else if (instance.getSHA1checkbox().isSelected()) {
-                    try {
-                        instance.getTextfieldhashoutput().setText(SHA.getSHA1Hash(instance.getTextfieldhashinput().getText()));
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                } else if (instance.getSHA224checkbox().isSelected()) {
-                    try {
-                        instance.getTextfieldhashoutput().setText(SHA.getSHA224Hash(instance.getTextfieldhashinput().getText()));
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                } else if (instance.getSHA256checkbox().isSelected()) {
-                    try {
-                        instance.getTextfieldhashoutput().setText(SHA.getSHA256Hash(instance.getTextfieldhashinput().getText()));
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                } else if (instance.getSHA384checkbox().isSelected()) {
-                    try {
-                        instance.getTextfieldhashoutput().setText(SHA.getSHA384Hash(instance.getTextfieldhashinput().getText()));
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                } else if (instance.getSHA512checkbox().isSelected()) {
-                    try {
-                        instance.getTextfieldhashoutput().setText(SHA.getSHA512Hash(instance.getTextfieldhashinput().getText()));
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-            }
-        } else if (event.getSource() == instance.getButtonpassword()) {
-            try {
-                //Generates a password using the given length from "textPasswordLength"
-                instance.getTextfieldpasswordoutput().setText(passwordgenerator.generatepassword(Integer.valueOf(instance.getTextPasswordLength().getText())));
-            } catch (Exception e) {
-                System.out.println(e);
-            }
+
+            btnhashmethod();
+
             /**
              * Fügt zum JFrame ein neues Verschlüsselungsmodul hinzu, solange der JFrame kleiner als der Bildschirm des Benutzers ist.
              * Bug: Würde das JFrame größer als der Bildschirm werden, würden alle Inhalte der ContentPane nicht mehr gerendert werden.
@@ -194,7 +100,6 @@ public class Main implements ActionListener {
         } else if (event.getSource() == instance.getBtnCryptcopy2clipboard()) {
             //Copies the text from "textFieldResult" to your clipboard - if the textfield is empty a message will pop up
             if (instance.getTextFieldResult().getText().equals("")) {
-                JFrame popup = new JFrame();
                 JOptionPane.showMessageDialog(popup, "Nothing to copy");
             } else {
                 String c = instance.getTextFieldResult().getText();
@@ -203,38 +108,8 @@ public class Main implements ActionListener {
                 clipboard.setContents(stringSelection, null);
             }
         } else if (event.getSource() == instance.getBtnDecrypt()) {
-            for (WindowModule windowModule1 : instance.getWmList())
-                if (!windowModule1.isSelected()) {
-                    JOptionPane.showMessageDialog(instance, "Alle Module müssen angekreuzt sein!");
-                }
-            String textToDecrypt = instance.getTextFieldInput().getText();
-            for (WindowModule windowModule : instance.getWmList()) {
-                switch (windowModule.getSelected()) {
-                    case "Vigenere 2.0":
-                        textToDecrypt = Vigenere.decrypt(textToDecrypt, Integer.valueOf(instance.getTextfieldVigenere().getText()));
 
-                        break;
-                    case "AES":
-                        if (instance.getTextFieldAesKey().getText().length() != 16) {
-                            JFrame popup = new JFrame();
-                            JOptionPane.showMessageDialog(popup, "Key must have a length of 16 chars.\nCurrent length is " + instance.getTextFieldAesKey().getText().length());
-                        }
-                        try {
-                            textToDecrypt = AESCipher.aesDecryptString(textToDecrypt, instance.getTextFieldAesKey().getText());
-                            //Verschlüsselt mit AES
-                            break;
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-
-                    case "MD5":
-
-                        break;
-                    default:
-                        break;
-                }
-            }
-            instance.getTextFieldResult().setText(textToDecrypt);
+            btndecryptmethod();
 
             /**
              If a checkbox is selected all the other checkboxes will be disabled and you are not able to select them anymore
@@ -340,6 +215,164 @@ public class Main implements ActionListener {
     private boolean checktheboxes() {
         //Checks if no checkbox is selected (used above on the create hash method)
         return !instance.getMD2checkbox().isSelected() && !instance.getMD5checkbox().isSelected() && !instance.getSHA224checkbox().isSelected() && !instance.getSHA256checkbox().isSelected() && !instance.getSHA384checkbox().isSelected() && !instance.getSHA384checkbox().isSelected() && !instance.getSHA512checkbox().isSelected();
+    }
+
+
+
+
+    /*
+
+    Following are the methods the event handler uses
+
+     */
+
+
+    private void btnencryptmethod(){
+
+        for (WindowModule windowModule : instance.getWmList()) {
+            if (!windowModule.isSelected()) {
+                JOptionPane.showMessageDialog(instance, "Alle Module müssen angekreuzt sein!");
+                return;
+            }
+        }
+        String textToEncrypt = instance.getTextFieldInput().getText();
+        for (WindowModule windowModule : instance.getWmList()) {
+            String key = windowModule.getKey();
+            switch (windowModule.getSelected()) {
+                case "Vigenere 2.0":
+                    if(key.equals("")){
+                        key = "0";
+                    }
+                    try{
+                        textToEncrypt = Vigenere.encrypt(textToEncrypt, Integer.valueOf(key));
+                        // Verschlüsselt mit Vigenere
+                        break;
+                    }catch(Exception e){
+                        JFrame vigenerepopup = new JFrame();
+                        JOptionPane.showMessageDialog(vigenerepopup, "Key must be numeric!");
+                        break;
+                    }
+                case "AES":
+                    if (key.length() != 16) {
+                        JFrame popup = new JFrame();
+                        JOptionPane.showMessageDialog(popup, "Key must have a length of 16 chars.\nCurrent length is " + key.length());
+                    }
+                    try {
+                        textToEncrypt = AESCipher.aesEncryptString(textToEncrypt, key);
+                        //Verschlüsselt mit AES
+                        break;
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
+
+                case "MD5":
+                    try {
+                        // textToEncrypt = MD.generatemd5hash(textToEncrypt);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+        }
+        instance.getTextFieldResult().setText(textToEncrypt);
+    }
+
+
+    public void btndecryptmethod(){
+        for (WindowModule windowModule1 : instance.getWmList())
+            if (!windowModule1.isSelected()) {
+                JOptionPane.showMessageDialog(instance, "Alle Module müssen angekreuzt sein!");
+            }
+        String textToDecrypt = instance.getTextFieldInput().getText();
+        for (WindowModule windowModule : instance.getWmList()) {
+            String key = windowModule.getKey();
+            switch (windowModule.getSelected()) {
+                case "Vigenere 2.0":
+                    if(key.equals("")){
+                        JOptionPane.showMessageDialog(popup, "Key mustn't be empty.");
+                        break;
+                    }
+                    try {
+                        textToDecrypt = Vigenere.decrypt(textToDecrypt, Integer.valueOf(key));
+                    }catch(Exception e){
+                        JOptionPane.showMessageDialog(popup, "Key must be numeric!");
+                    }
+                    break;
+                case "AES":
+                    if (instance.getTextFieldAesKey().getText().length() != 16) {
+                        JOptionPane.showMessageDialog(popup, "Key must have a length of 16 chars.\nCurrent length is " + instance.getTextFieldAesKey().getText().length());
+                    }
+                    try {
+                        textToDecrypt = AESCipher.aesDecryptString(textToDecrypt, instance.getTextFieldAesKey().getText());
+                        //Verschlüsselt mit AES
+                        break;
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                case "MD5":
+
+                    break;
+                default:
+                    break;
+            }
+        }
+        instance.getTextFieldResult().setText(textToDecrypt);
+    }
+
+    public void btnhashmethod(){
+        //Checks if a checkbox is selected - if not a message will pop up
+        if(checktheboxes()){
+            JOptionPane.showMessageDialog(popup, "Select a hashing algorithm!");
+        }else{
+            if (instance.getMD2checkbox().isSelected()) {
+                try {
+                    instance.getTextfieldhashoutput().setText(MD.getMD2Hash(instance.getTextfieldhashinput().getText()));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (instance.getMD5checkbox().isSelected()) {
+                try {
+                    instance.getTextfieldhashoutput().setText(MD.getMD5Hash(instance.getTextfieldhashinput().getText()));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (instance.getSHA1checkbox().isSelected()) {
+                try {
+                    instance.getTextfieldhashoutput().setText(SHA.getSHA1Hash(instance.getTextfieldhashinput().getText()));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (instance.getSHA224checkbox().isSelected()) {
+                try {
+                    instance.getTextfieldhashoutput().setText(SHA.getSHA224Hash(instance.getTextfieldhashinput().getText()));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (instance.getSHA256checkbox().isSelected()) {
+                try {
+                    instance.getTextfieldhashoutput().setText(SHA.getSHA256Hash(instance.getTextfieldhashinput().getText()));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (instance.getSHA384checkbox().isSelected()) {
+                try {
+                    instance.getTextfieldhashoutput().setText(SHA.getSHA384Hash(instance.getTextfieldhashinput().getText()));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (instance.getSHA512checkbox().isSelected()) {
+                try {
+                    instance.getTextfieldhashoutput().setText(SHA.getSHA512Hash(instance.getTextfieldhashinput().getText()));
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
     }
 
 }
