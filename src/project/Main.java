@@ -237,8 +237,8 @@ public class Main implements ActionListener {
         }
     }
     public void btngetpasswordmethod(){
-        if(instance.getTextPasswordLength().getText().equals("")){
-            JOptionPane.showMessageDialog(Gui.popup, "Length field mustn't be empty!");
+        if(instance.getTextPasswordLength().getText().equals("") || Integer.valueOf(instance.getTextPasswordLength().getText()) < 1){
+            JOptionPane.showMessageDialog(Gui.popup, "Length field mustn't be empty and has to be greater than 0!");
         }else {
             try {
                 instance.getTextfieldpasswordoutput().setText(Passwordgenerator.generatepassword(Integer.valueOf(instance.getTextPasswordLength().getText())));
