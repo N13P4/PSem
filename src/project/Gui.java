@@ -58,7 +58,8 @@ public class Gui extends JFrame {
     private JTextField textFieldResult;
     private JTextField textfieldVigenere;
     private JTextField textPasswordLength;
-    private LinkedList<WindowModule> wmList;
+    public static JFrame popup = new JFrame();
+    public LinkedList<WindowModule> wmList;
 
     /**
      * Konstruktor der Hauptklasse des ganzen Programms.
@@ -103,8 +104,6 @@ public class Gui extends JFrame {
         hashinput.setBounds(700, 100, 120, 20);
         hashoutput = new JLabel("Output:");
         hashoutput.setBounds(700, 130, 120, 20);
-        labelAesKey = new JLabel("En-/Decryption Key: ");
-        labelAesKey.setBounds(395, 65, 190, 20);
         labelInput = new JLabel("Input: ");
         labelInput.setBounds(10, 10, 80, 20);
         labelpassword = new JLabel("Password:");
@@ -113,8 +112,6 @@ public class Gui extends JFrame {
         labelPasswordLength.setBounds(700, 10, 125, 20);
         labelResult = new JLabel("Out:");
         labelResult.setBounds(10, 85, 40, 20);
-        labelVigenere = new JLabel("Key (numeric):");
-        labelVigenere.setBounds(395, 110, 190, 20);
         MD2checkbox = new JCheckBox();
         MD2checkbox.addActionListener(handler);
         MD2checkbox.setBounds(1110, 100, 20, 20);
@@ -151,8 +148,6 @@ public class Gui extends JFrame {
         SHA512label = new JLabel("SHA512");
         SHA512label.setBounds(1070, 200, 70, 20);
         textFieldAesKey = new JTextField();
-        textFieldAesKey.addActionListener(handler);
-        textFieldAesKey.setBounds(395, 90, 180, 20);
         textfieldhashinput = new JTextField();
         textfieldhashinput.setBounds(770, 100, 255, 20);
         textfieldhashoutput = new JTextField();
@@ -163,8 +158,6 @@ public class Gui extends JFrame {
         textfieldpasswordoutput.setBounds(835, 35, 200, 20);
         textFieldResult = new JTextField();
         textFieldResult.setBounds(60, 85, 325, 20);
-        textfieldVigenere = new JTextField();
-        textfieldVigenere.setBounds(395, 130, 180, 20);
         textPasswordLength = new JTextField();
         textPasswordLength.setBounds(835, 10, 200, 20);
         wmList.add(new WindowModule(0, 40));
@@ -196,11 +189,9 @@ public class Gui extends JFrame {
         this.getContentPane().add(generatehash);
         this.getContentPane().add(hashinput);
         this.getContentPane().add(hashoutput);
-        this.getContentPane().add(labelAesKey);
         this.getContentPane().add(labelInput);
         this.getContentPane().add(labelpassword);
         this.getContentPane().add(labelPasswordLength);
-        this.getContentPane().add(labelVigenere);
         this.getContentPane().add(MD2checkbox);
         this.getContentPane().add(MD2label);
         this.getContentPane().add(MD5checkbox);
@@ -215,12 +206,10 @@ public class Gui extends JFrame {
         this.getContentPane().add(SHA384label);
         this.getContentPane().add(SHA512checkbox);
         this.getContentPane().add(SHA512label);
-        this.getContentPane().add(textFieldAesKey);
         this.getContentPane().add(textfieldhashinput);
         this.getContentPane().add(textfieldhashoutput);
         this.getContentPane().add(textFieldInput);
         this.getContentPane().add(textfieldpasswordoutput);
-        this.getContentPane().add(textfieldVigenere);
         this.getContentPane().add(textPasswordLength);
         this.getContentPane().add(labelResult);
         this.getContentPane().add(textFieldResult);
