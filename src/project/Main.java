@@ -17,7 +17,6 @@ import java.io.IOException;
 
 public class Main implements ActionListener {
 
-    JFrame popup = new JFrame();
 
     public static void main(String[] args) {
         new Main();
@@ -31,201 +30,47 @@ public class Main implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
+        //First checks if all modules are selected (not selected -> popup warning)
 
-        /**
-         * Überprüft zuerst, ob alle Module angekreuzt wurden, wenn nicht, gibt eine Fehlermeldung in Form
-         * Eines JOptionPane aus, sonst, verschlüsselt den Input nach der/den ausgewählte(n) Verschlüsselungsalgorithmen
-         * Und gibt in dann über das unter JTextField aus.
-         */
         if (event.getSource() == instance.getBtnEncrypt()) {
             btnencryptmethod();
         } else if (event.getSource() == instance.getCopypassword()) {
-            if (instance.getTextfieldpasswordoutput().getText().equals("")) {
-                JOptionPane.showMessageDialog(popup, "Nothing to copy");
-            } else {
-                String c = instance.getTextfieldpasswordoutput().getText();
-                StringSelection stringSelection = new StringSelection(c);
-                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                clipboard.setContents(stringSelection, null);
-            }
+          btncopypasswordmethod();
         } else if (event.getSource() == instance.getCopyhash()) {
-            if (instance.getTextfieldhashoutput().getText().equals("")) {
-                JOptionPane.showMessageDialog(popup, "Nothing to copy");
-            } else {
-                String c = instance.getTextfieldhashoutput().getText();
-                StringSelection stringSelection = new StringSelection(c);
-                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                clipboard.setContents(stringSelection, null);
-            }
-
+          btncopyhashmethod();
         } else if (event.getSource() == instance.getButtonpassword()) {
-            try {
-                instance.getTextfieldpasswordoutput().setText(Passwordgenerator.generatepassword(Integer.valueOf(instance.getTextPasswordLength().getText())));
-            } catch (IOException ioe) {
-                JOptionPane.showMessageDialog(popup, "Invalid value - Numbers only!");
-            }
-
+            btngetpasswordmethod();
         } else if (event.getSource() == instance.getBtnExpand()) {
-            if (!instance.isExpanded()) {
-                instance.setSize(1200, 225 + (instance.getWmList().size() * 70));
-                instance.getBtnExpand().setText("<");
-            } else {
-                instance.setSize(635, 225 + (instance.getWmList().size() * 70));
-                instance.getBtnExpand().setText(">");
-            }
-            instance.setExpanded(!instance.isExpanded());
-
+            btnexpandmethod();
         } else if (event.getSource() == instance.getGeneratehash()) {
-
             btnhashmethod();
-
-            /**
-             * Fügt zum JFrame ein neues Verschlüsselungsmodul hinzu, solange der JFrame kleiner als der Bildschirm des Benutzers ist.
-             * Bug: Würde das JFrame größer als der Bildschirm werden, würden alle Inhalte der ContentPane nicht mehr gerendert werden.
-             */
         } else if (event.getSource() == instance.getBtnPlus()) {
-            if (!(instance.getHeight() + 40 > Toolkit.getDefaultToolkit().getScreenSize().height - 40)) {
-                instance.getWindowModuleList().add(new WindowModule(instance.getWindowModuleList().size(), 40));
-                instance.reload();
-            }
-            /**
-             * Entfernt ein Verschlüsselungsmodul, solange die Anzahl der vorhandenen Module > 1 ist.
-             */
+            btnplusmethod();
         } else if (event.getSource() == instance.getBtnMinus()) {
-            if (!(instance.getWmList().size() == 1)) {
-                instance.getWindowModuleList().removeLast();
-                instance.reload();
-            }
-
+            btnminusmethod();
         } else if (event.getSource() == instance.getBtnCryptcopy2clipboard()) {
-            //Copies the text from "textFieldResult" to your clipboard - if the textfield is empty a message will pop up
-            if (instance.getTextFieldResult().getText().equals("")) {
-                JOptionPane.showMessageDialog(popup, "Nothing to copy");
-            } else {
-                String c = instance.getTextFieldResult().getText();
-                StringSelection stringSelection = new StringSelection(c);
-                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                clipboard.setContents(stringSelection, null);
-            }
+          copycryptomethod();
         } else if (event.getSource() == instance.getBtnDecrypt()) {
-
             btndecryptmethod();
-
-            /**
-             If a checkbox is selected all the other checkboxes will be disabled and you are not able to select them anymore
-             If you deselect the checkbox again the method "enableall()" will enable all checkboxes again
-             **/
-
         } else if (event.getSource() == instance.getSHA1checkbox()) {
-            if (instance.getSHA1checkbox().isSelected()) {
-                instance.getMD2checkbox().setEnabled(false);
-                instance.getMD5checkbox().setEnabled(false);
-                instance.getSHA224checkbox().setEnabled(false);
-                instance.getSHA256checkbox().setEnabled(false);
-                instance.getSHA384checkbox().setEnabled(false);
-                instance.getSHA512checkbox().setEnabled(false);
-            } else {
-                enableall();
-            }
-
+            SHA1checkboxmethod();
         } else if (event.getSource() == instance.getSHA224checkbox()) {
-            if (instance.getSHA224checkbox().isSelected()) {
-                instance.getMD2checkbox().setEnabled(false);
-                instance.getMD5checkbox().setEnabled(false);
-                instance.getSHA1checkbox().setEnabled(false);
-                instance.getSHA256checkbox().setEnabled(false);
-                instance.getSHA384checkbox().setEnabled(false);
-                instance.getSHA512checkbox().setEnabled(false);
-            } else {
-                enableall();
-            }
-
+            SHA224checkboxmethod();
         } else if (event.getSource() == instance.getSHA256checkbox()) {
-            if (instance.getSHA256checkbox().isSelected()) {
-                instance.getMD2checkbox().setEnabled(false);
-                instance.getMD5checkbox().setEnabled(false);
-                instance.getSHA1checkbox().setEnabled(false);
-                instance.getSHA224checkbox().setEnabled(false);
-                instance.getSHA384checkbox().setEnabled(false);
-                instance.getSHA512checkbox().setEnabled(false);
-            } else {
-                enableall();
-            }
-
+            SHA256checkboxmethod();
         } else if (event.getSource() == instance.getSHA384checkbox()) {
-            if (instance.getSHA384checkbox().isSelected()) {
-                instance.getMD2checkbox().setEnabled(false);
-                instance.getMD5checkbox().setEnabled(false);
-                instance.getSHA1checkbox().setEnabled(false);
-                instance.getSHA224checkbox().setEnabled(false);
-                instance.getSHA256checkbox().setEnabled(false);
-                instance.getSHA512checkbox().setEnabled(false);
-            } else {
-                enableall();
-            }
-
-
+            SHA384checkboxmethod();
         } else if (event.getSource() == instance.getSHA512checkbox()) {
-            if (instance.getSHA512checkbox().isSelected()) {
-                instance.getMD2checkbox().setEnabled(false);
-                instance.getMD5checkbox().setEnabled(false);
-                instance.getSHA1checkbox().setEnabled(false);
-                instance.getSHA224checkbox().setEnabled(false);
-                instance.getSHA256checkbox().setEnabled(false);
-                instance.getSHA384checkbox().setEnabled(false);
-            } else {
-                enableall();
-            }
+            SHA512checkboxmethod();
         } else if (event.getSource() == instance.getMD2checkbox()) {
-            if (instance.getMD2checkbox().isSelected()) {
-                instance.getMD5checkbox().setEnabled(false);
-                instance.getSHA1checkbox().setEnabled(false);
-                instance.getSHA224checkbox().setEnabled(false);
-                instance.getSHA256checkbox().setEnabled(false);
-                instance.getSHA384checkbox().setEnabled(false);
-                instance.getSHA512checkbox().setEnabled(false);
-            } else {
-                enableall();
-            }
+            MD2checkboxmethod();
         } else if (event.getSource() == instance.getMD5checkbox()) {
-            if (instance.getMD5checkbox().isSelected()) {
-                instance.getMD2checkbox().setEnabled(false);
-                instance.getSHA1checkbox().setEnabled(false);
-                instance.getSHA224checkbox().setEnabled(false);
-                instance.getSHA256checkbox().setEnabled(false);
-                instance.getSHA384checkbox().setEnabled(false);
-                instance.getSHA512checkbox().setEnabled(false);
-            } else {
-                enableall();
-            }
+            MD5checkboxmethod();
         }
     }
 
-    private void enableall() {
-        //Enables all checkboxes again
-        instance.getMD2checkbox().setEnabled(true);
-        instance.getMD5checkbox().setEnabled(true);
-        instance.getSHA1checkbox().setEnabled(true);
-        instance.getSHA224checkbox().setEnabled(true);
-        instance.getSHA256checkbox().setEnabled(true);
-        instance.getSHA384checkbox().setEnabled(true);
-        instance.getSHA512checkbox().setEnabled(true);
-    }
 
-    private boolean checktheboxes() {
-        //Checks if no checkbox is selected (used above on the create hash method)
-        return !instance.getMD2checkbox().isSelected() && !instance.getMD5checkbox().isSelected() && !instance.getSHA224checkbox().isSelected() && !instance.getSHA256checkbox().isSelected() && !instance.getSHA384checkbox().isSelected() && !instance.getSHA384checkbox().isSelected() && !instance.getSHA512checkbox().isSelected();
-    }
-
-
-
-
-    /*
-
-    Following are the methods the event handler uses
-
-     */
-
+    //Following are the methods are the ones of the eventhandler above
 
     private void btnencryptmethod(){
 
@@ -280,8 +125,6 @@ public class Main implements ActionListener {
         }
         instance.getTextFieldResult().setText(textToEncrypt);
     }
-
-
     public void btndecryptmethod(){
         for (WindowModule windowModule1 : instance.getWmList())
             if (!windowModule1.isSelected()) {
@@ -293,18 +136,18 @@ public class Main implements ActionListener {
             switch (windowModule.getSelected()) {
                 case "Vigenere 2.0":
                     if(key.equals("")){
-                        JOptionPane.showMessageDialog(popup, "Key mustn't be empty.");
+                        JOptionPane.showMessageDialog(Gui.popup, "Key mustn't be empty.");
                         break;
                     }
                     try {
                         textToDecrypt = Vigenere.decrypt(textToDecrypt, Integer.valueOf(key));
                     }catch(Exception e){
-                        JOptionPane.showMessageDialog(popup, "Key must be numeric!");
+                        JOptionPane.showMessageDialog(Gui.popup, "Key must be numeric!");
                     }
                     break;
                 case "AES":
                     if (instance.getTextFieldAesKey().getText().length() != 16) {
-                        JOptionPane.showMessageDialog(popup, "Key must have a length of 16 chars.\nCurrent length is " + instance.getTextFieldAesKey().getText().length());
+                        JOptionPane.showMessageDialog(Gui.popup, "Key must have a length of 16 chars.\nCurrent length is " + instance.getTextFieldAesKey().getText().length());
                     }
                     try {
                         textToDecrypt = AESCipher.aesDecryptString(textToDecrypt, instance.getTextFieldAesKey().getText());
@@ -323,11 +166,10 @@ public class Main implements ActionListener {
         }
         instance.getTextFieldResult().setText(textToDecrypt);
     }
-
     public void btnhashmethod(){
         //Checks if a checkbox is selected - if not a message will pop up
         if(checktheboxes()){
-            JOptionPane.showMessageDialog(popup, "Select a hashing algorithm!");
+            JOptionPane.showMessageDialog(Gui.popup, "Select a hashing algorithm!");
         }else{
             if (instance.getMD2checkbox().isSelected()) {
                 try {
@@ -374,5 +216,173 @@ public class Main implements ActionListener {
             }
         }
     }
+    public void btncopypasswordmethod(){
+        if (instance.getTextfieldpasswordoutput().getText().equals("")) {
+            JOptionPane.showMessageDialog(Gui.popup, "Nothing to copy");
+        } else {
+            String c = instance.getTextfieldpasswordoutput().getText();
+            StringSelection stringSelection = new StringSelection(c);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+        }
+    }
+    public void btncopyhashmethod(){
+        if (instance.getTextfieldhashoutput().getText().equals("")) {
+            JOptionPane.showMessageDialog(Gui.popup, "Nothing to copy");
+        } else {
+            String c = instance.getTextfieldhashoutput().getText();
+            StringSelection stringSelection = new StringSelection(c);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+        }
+    }
+    public void btngetpasswordmethod(){
+        if(instance.getTextPasswordLength().getText().equals("")){
+            JOptionPane.showMessageDialog(Gui.popup, "Length field mustn't be empty!");
+        }else {
+            try {
+                instance.getTextfieldpasswordoutput().setText(Passwordgenerator.generatepassword(Integer.valueOf(instance.getTextPasswordLength().getText())));
+            } catch (IOException ioe) {
+                JOptionPane.showMessageDialog(Gui.popup, "Invalid value - Numbers only!");
+            }
+        }
+    }
+    public void btnexpandmethod(){
+        if (!instance.isExpanded()) {
+            instance.setSize(1200, 225 + (instance.getWmList().size() * 70));
+            instance.getBtnExpand().setText("<");
+        } else {
+            instance.setSize(635, 225 + (instance.getWmList().size() * 70));
+            instance.getBtnExpand().setText(">");
+        }
+        instance.setExpanded(!instance.isExpanded());
+    }
+    public void btnplusmethod(){
+        if (!(instance.getHeight() + 40 > Toolkit.getDefaultToolkit().getScreenSize().height - 40)) {
+            instance.getWindowModuleList().add(new WindowModule(instance.getWindowModuleList().size(), 40));
+            instance.reload();
+        }
+    }
+    public void btnminusmethod(){
+        if (!(instance.getWmList().size() == 1)) {
+            instance.getWindowModuleList().removeLast();
+            instance.reload();
+        }
+    }
+    public void copycryptomethod(){
+        //Copies the text from "textFieldResult" to your clipboard - if the textfield is empty a message will pop up
+        if (instance.getTextFieldResult().getText().equals("")) {
+            JOptionPane.showMessageDialog(Gui.popup, "Nothing to copy");
+        } else {
+            String c = instance.getTextFieldResult().getText();
+            StringSelection stringSelection = new StringSelection(c);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
+        }
+    }
 
+    // Below are the methods for the hashing checkboxes. If one checkbox is enabled all others will be disabled.
+    public void SHA1checkboxmethod(){
+        if (instance.getSHA1checkbox().isSelected()) {
+            instance.getMD2checkbox().setEnabled(false);
+            instance.getMD5checkbox().setEnabled(false);
+            instance.getSHA224checkbox().setEnabled(false);
+            instance.getSHA256checkbox().setEnabled(false);
+            instance.getSHA384checkbox().setEnabled(false);
+            instance.getSHA512checkbox().setEnabled(false);
+        } else {
+            enableall();
+        }
+    }
+    public void SHA224checkboxmethod(){
+        if (instance.getSHA224checkbox().isSelected()) {
+            instance.getMD2checkbox().setEnabled(false);
+            instance.getMD5checkbox().setEnabled(false);
+            instance.getSHA1checkbox().setEnabled(false);
+            instance.getSHA256checkbox().setEnabled(false);
+            instance.getSHA384checkbox().setEnabled(false);
+            instance.getSHA512checkbox().setEnabled(false);
+        } else {
+            enableall();
+        }
+    }
+    public void SHA256checkboxmethod(){
+        if (instance.getSHA256checkbox().isSelected()) {
+            instance.getMD2checkbox().setEnabled(false);
+            instance.getMD5checkbox().setEnabled(false);
+            instance.getSHA1checkbox().setEnabled(false);
+            instance.getSHA224checkbox().setEnabled(false);
+            instance.getSHA384checkbox().setEnabled(false);
+            instance.getSHA512checkbox().setEnabled(false);
+        } else {
+            enableall();
+        }
+    }
+    public void SHA384checkboxmethod(){
+        if (instance.getSHA384checkbox().isSelected()) {
+            instance.getMD2checkbox().setEnabled(false);
+            instance.getMD5checkbox().setEnabled(false);
+            instance.getSHA1checkbox().setEnabled(false);
+            instance.getSHA224checkbox().setEnabled(false);
+            instance.getSHA256checkbox().setEnabled(false);
+            instance.getSHA512checkbox().setEnabled(false);
+        } else {
+            enableall();
+        }
+    }
+    public void SHA512checkboxmethod(){
+        if (instance.getSHA512checkbox().isSelected()) {
+            instance.getMD2checkbox().setEnabled(false);
+            instance.getMD5checkbox().setEnabled(false);
+            instance.getSHA1checkbox().setEnabled(false);
+            instance.getSHA224checkbox().setEnabled(false);
+            instance.getSHA256checkbox().setEnabled(false);
+            instance.getSHA384checkbox().setEnabled(false);
+        } else {
+            enableall();
+        }
+    }
+    public void MD2checkboxmethod(){
+        if (instance.getMD2checkbox().isSelected()) {
+            instance.getMD5checkbox().setEnabled(false);
+            instance.getSHA1checkbox().setEnabled(false);
+            instance.getSHA224checkbox().setEnabled(false);
+            instance.getSHA256checkbox().setEnabled(false);
+            instance.getSHA384checkbox().setEnabled(false);
+            instance.getSHA512checkbox().setEnabled(false);
+        } else {
+            enableall();
+        }
+    }
+    public void MD5checkboxmethod(){
+        if (instance.getMD5checkbox().isSelected()) {
+            instance.getMD2checkbox().setEnabled(false);
+            instance.getSHA1checkbox().setEnabled(false);
+            instance.getSHA224checkbox().setEnabled(false);
+            instance.getSHA256checkbox().setEnabled(false);
+            instance.getSHA384checkbox().setEnabled(false);
+            instance.getSHA512checkbox().setEnabled(false);
+        } else {
+            enableall();
+        }
+    }
+    //This method enables all checkboxes again
+    private void enableall() {
+        //Enables all checkboxes again
+        instance.getMD2checkbox().setEnabled(true);
+        instance.getMD5checkbox().setEnabled(true);
+        instance.getSHA1checkbox().setEnabled(true);
+        instance.getSHA224checkbox().setEnabled(true);
+        instance.getSHA256checkbox().setEnabled(true);
+        instance.getSHA384checkbox().setEnabled(true);
+        instance.getSHA512checkbox().setEnabled(true);
+    }
+    //Checks if no checkbox is selected
+    private boolean checktheboxes() {
+        return !instance.getMD2checkbox().isSelected() && !instance.getMD5checkbox().isSelected() && !instance.getSHA224checkbox().isSelected() && !instance.getSHA256checkbox().isSelected() && !instance.getSHA384checkbox().isSelected() && !instance.getSHA384checkbox().isSelected() && !instance.getSHA512checkbox().isSelected();
+    }
+    // End of "hashing-checkbox-methods"
+
+
+    //End of "eventhandler-methods"
 }
