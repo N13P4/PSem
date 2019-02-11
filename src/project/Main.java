@@ -13,6 +13,8 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+
 public class Main implements ActionListener {
 
 
@@ -278,84 +280,56 @@ public class Main implements ActionListener {
     // Below are the methods for the hashing checkboxes. If one checkbox is enabled all others will be disabled.
     public void SHA1checkboxmethod(){
         if (instance.getSHA1checkbox().isSelected()) {
-            instance.getMD2checkbox().setEnabled(false);
-            instance.getMD5checkbox().setEnabled(false);
-            instance.getSHA224checkbox().setEnabled(false);
-            instance.getSHA256checkbox().setEnabled(false);
-            instance.getSHA384checkbox().setEnabled(false);
-            instance.getSHA512checkbox().setEnabled(false);
+            disableall();
+            instance.getSHA1checkbox().setEnabled(true);
         } else {
             enableall();
         }
     }
     public void SHA224checkboxmethod(){
         if (instance.getSHA224checkbox().isSelected()) {
-            instance.getMD2checkbox().setEnabled(false);
-            instance.getMD5checkbox().setEnabled(false);
-            instance.getSHA1checkbox().setEnabled(false);
-            instance.getSHA256checkbox().setEnabled(false);
-            instance.getSHA384checkbox().setEnabled(false);
-            instance.getSHA512checkbox().setEnabled(false);
+            disableall();
+            instance.getSHA224checkbox().setEnabled(true);
         } else {
             enableall();
         }
     }
     public void SHA256checkboxmethod(){
         if (instance.getSHA256checkbox().isSelected()) {
-            instance.getMD2checkbox().setEnabled(false);
-            instance.getMD5checkbox().setEnabled(false);
-            instance.getSHA1checkbox().setEnabled(false);
-            instance.getSHA224checkbox().setEnabled(false);
-            instance.getSHA384checkbox().setEnabled(false);
-            instance.getSHA512checkbox().setEnabled(false);
+           disableall();
+           instance.getSHA256checkbox().setEnabled(true);
         } else {
             enableall();
         }
     }
     public void SHA384checkboxmethod(){
         if (instance.getSHA384checkbox().isSelected()) {
-            instance.getMD2checkbox().setEnabled(false);
-            instance.getMD5checkbox().setEnabled(false);
-            instance.getSHA1checkbox().setEnabled(false);
-            instance.getSHA224checkbox().setEnabled(false);
-            instance.getSHA256checkbox().setEnabled(false);
-            instance.getSHA512checkbox().setEnabled(false);
+            disableall();
+            instance.getSHA384checkbox().setEnabled(true);
         } else {
             enableall();
         }
     }
     public void SHA512checkboxmethod(){
         if (instance.getSHA512checkbox().isSelected()) {
-            instance.getMD2checkbox().setEnabled(false);
-            instance.getMD5checkbox().setEnabled(false);
-            instance.getSHA1checkbox().setEnabled(false);
-            instance.getSHA224checkbox().setEnabled(false);
-            instance.getSHA256checkbox().setEnabled(false);
-            instance.getSHA384checkbox().setEnabled(false);
+           disableall();
+           instance.getSHA512checkbox().setEnabled(true);
         } else {
             enableall();
         }
     }
     public void MD2checkboxmethod(){
         if (instance.getMD2checkbox().isSelected()) {
-            instance.getMD5checkbox().setEnabled(false);
-            instance.getSHA1checkbox().setEnabled(false);
-            instance.getSHA224checkbox().setEnabled(false);
-            instance.getSHA256checkbox().setEnabled(false);
-            instance.getSHA384checkbox().setEnabled(false);
-            instance.getSHA512checkbox().setEnabled(false);
+           disableall();
+           instance.getMD2checkbox().setEnabled(true);
         } else {
             enableall();
         }
     }
     public void MD5checkboxmethod(){
         if (instance.getMD5checkbox().isSelected()) {
-            instance.getMD2checkbox().setEnabled(false);
-            instance.getSHA1checkbox().setEnabled(false);
-            instance.getSHA224checkbox().setEnabled(false);
-            instance.getSHA256checkbox().setEnabled(false);
-            instance.getSHA384checkbox().setEnabled(false);
-            instance.getSHA512checkbox().setEnabled(false);
+            disableall();
+            instance.getMD5checkbox().setEnabled(true);
         } else {
             enableall();
         }
@@ -370,6 +344,15 @@ public class Main implements ActionListener {
         instance.getSHA256checkbox().setEnabled(true);
         instance.getSHA384checkbox().setEnabled(true);
         instance.getSHA512checkbox().setEnabled(true);
+    }
+    private void disableall(){
+        instance.getMD2checkbox().setEnabled(false);
+        instance.getMD5checkbox().setEnabled(false);
+        instance.getSHA1checkbox().setEnabled(false);
+        instance.getSHA224checkbox().setEnabled(false);
+        instance.getSHA256checkbox().setEnabled(false);
+        instance.getSHA384checkbox().setEnabled(false);
+        instance.getSHA512checkbox().setEnabled(false);
     }
     //Checks if no checkbox is selected
     private boolean checktheboxes() {
