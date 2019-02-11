@@ -13,8 +13,6 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-
 public class Main implements ActionListener {
 
 
@@ -237,15 +235,11 @@ public class Main implements ActionListener {
         }
     }
     public void btngetpasswordmethod(){
-        if(instance.getTextPasswordLength().getText().equals("") || Integer.valueOf(instance.getTextPasswordLength().getText()) < 1){
-            JOptionPane.showMessageDialog(Gui.popup, "Length field mustn't be empty and has to be greater than 0!");
-        }else {
-            try {
-                instance.getTextfieldpasswordoutput().setText(Passwordgenerator.generatepassword(Integer.valueOf(instance.getTextPasswordLength().getText())));
-            } catch (IOException ioe) {
-                JOptionPane.showMessageDialog(Gui.popup, "Invalid value - Numbers only!");
-            }
-        }
+       try{
+           instance.getTextfieldpasswordoutput().setText(Passwordgenerator.execute(instance.getTextPasswordLength().getText()));
+       }catch(Exception e){
+           JOptionPane.showMessageDialog(Gui.popup, "Error message: " + e.getMessage());
+       }
     }
     public void btnexpandmethod(){
         if (!instance.isExpanded()) {
