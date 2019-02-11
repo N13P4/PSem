@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class Passwordgenerator {
 
-    static File f = new File("password_pool.cfg");
+    private static File f = new File("password_pool.cfg");
 
     public static String execute(String length){
         try{
@@ -36,8 +36,8 @@ public class Passwordgenerator {
 
 
 
-    public static String generatepassword(int length) throws IOException, NumberFormatException {
-        String pool = "";
+    private static String generatepassword(int length) throws IOException, NumberFormatException {
+        String pool;
         FileReader fr = new FileReader("password_pool.cfg");
         BufferedReader br = new BufferedReader(fr);
         pool = br.readLine();
