@@ -92,7 +92,7 @@ public class Main implements ActionListener {
                         break;
                     }catch(Exception e){
                         JFrame vigenerepopup = new JFrame();
-                        JOptionPane.showMessageDialog(vigenerepopup, "Key must be numeric!");
+                        JOptionPane.showMessageDialog(vigenerepopup, "Key must be numeric!\n Error message: " + e.getMessage());
                         break;
                     }
                 case "AES":
@@ -140,7 +140,7 @@ public class Main implements ActionListener {
                     try {
                         textToDecrypt = Vigenere.decrypt(textToDecrypt, Integer.valueOf(key));
                     }catch(Exception e){
-                        JOptionPane.showMessageDialog(Gui.popup, "Key must be numeric!");
+                        JOptionPane.showMessageDialog(Gui.popup, "Key must be numeric!\n Error message: " + e.getMessage());
                     }
                     break;
                 case "AES":
@@ -173,43 +173,43 @@ public class Main implements ActionListener {
                 try {
                     instance.getTextfieldhashoutput().setText(MD.getMD2Hash(instance.getTextfieldhashinput().getText()));
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(Gui.popup, "Error message: " + e.getMessage());
                 }
             } else if (instance.getMD5checkbox().isSelected()) {
                 try {
                     instance.getTextfieldhashoutput().setText(MD.getMD5Hash(instance.getTextfieldhashinput().getText()));
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(Gui.popup, "Error message: " + e.getMessage());
                 }
             } else if (instance.getSHA1checkbox().isSelected()) {
                 try {
                     instance.getTextfieldhashoutput().setText(SHA.getSHA1Hash(instance.getTextfieldhashinput().getText()));
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(Gui.popup, "Error message: " + e.getMessage());
                 }
             } else if (instance.getSHA224checkbox().isSelected()) {
                 try {
                     instance.getTextfieldhashoutput().setText(SHA.getSHA224Hash(instance.getTextfieldhashinput().getText()));
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(Gui.popup, "Error message: " + e.getMessage());
                 }
             } else if (instance.getSHA256checkbox().isSelected()) {
                 try {
                     instance.getTextfieldhashoutput().setText(SHA.getSHA256Hash(instance.getTextfieldhashinput().getText()));
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(Gui.popup, "Error message: " + e.getMessage());
                 }
             } else if (instance.getSHA384checkbox().isSelected()) {
                 try {
                     instance.getTextfieldhashoutput().setText(SHA.getSHA384Hash(instance.getTextfieldhashinput().getText()));
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(Gui.popup, "Error message: " + e.getMessage());
                 }
             } else if (instance.getSHA512checkbox().isSelected()) {
                 try {
                     instance.getTextfieldhashoutput().setText(SHA.getSHA512Hash(instance.getTextfieldhashinput().getText()));
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    JOptionPane.showMessageDialog(Gui.popup, "Error message: " + e.getMessage());
                 }
             }
         }
