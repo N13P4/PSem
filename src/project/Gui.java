@@ -59,12 +59,12 @@ public class Gui extends JFrame {
     private JTextField textfieldVigenere;
     private JTextField textPasswordLength;
     public static JFrame popup = new JFrame();
-    public LinkedList<WindowModule> wmList;
+    private LinkedList<WindowModule> wmList;
 
     /**
      * Konstruktor der Hauptklasse des ganzen Programms.
      */
-    public Gui(Main main) {
+    Gui(Main main) {
         handler = main;
         wmList = new LinkedList<>();
         initWindow();
@@ -175,7 +175,7 @@ public class Gui extends JFrame {
      * Wird auch im Konstruktor verwendet, um redundanten Code zu vermeiden.
      */
     @SuppressWarnings("Duplicates")
-    public void reload() {
+    void reload() {
         this.getContentPane().removeAll();
         this.getContentPane().add(btnCryptcopy2clipboard);
         this.getContentPane().add(btnDecrypt);
@@ -229,15 +229,15 @@ public class Gui extends JFrame {
     }
 
 
-    public LinkedList<WindowModule> getWindowModuleList() {
+    LinkedList<WindowModule> getWindowModuleList() {
         return wmList;
     }
 
-    public boolean isExpanded() {
+    boolean isExpanded() {
         return isExpanded;
     }
 
-    public void setExpanded(boolean expanded) {
+    void setExpanded(boolean expanded) {
         isExpanded = expanded;
     }
 
@@ -249,7 +249,7 @@ public class Gui extends JFrame {
         this.handler = handler;
     }
 
-    public JButton getBtnCryptcopy2clipboard() {
+    JButton getBtnCryptcopy2clipboard() {
         return btnCryptcopy2clipboard;
     }
 
@@ -257,7 +257,7 @@ public class Gui extends JFrame {
         this.btnCryptcopy2clipboard = btnCryptcopy2clipboard;
     }
 
-    public JButton getBtnDecrypt() {
+    JButton getBtnDecrypt() {
         return btnDecrypt;
     }
 
@@ -265,7 +265,7 @@ public class Gui extends JFrame {
         this.btnDecrypt = btnDecrypt;
     }
 
-    public JButton getBtnEncrypt() {
+    JButton getBtnEncrypt() {
         return btnEncrypt;
     }
 
@@ -273,7 +273,7 @@ public class Gui extends JFrame {
         this.btnEncrypt = btnEncrypt;
     }
 
-    public JButton getBtnExpand() {
+    JButton getBtnExpand() {
         return btnExpand;
     }
 
@@ -281,7 +281,7 @@ public class Gui extends JFrame {
         this.btnExpand = btnExpand;
     }
 
-    public JButton getBtnMinus() {
+    JButton getBtnMinus() {
         return btnMinus;
     }
 
@@ -289,7 +289,7 @@ public class Gui extends JFrame {
         this.btnMinus = btnMinus;
     }
 
-    public JButton getBtnPlus() {
+    JButton getBtnPlus() {
         return btnPlus;
     }
 
@@ -297,7 +297,7 @@ public class Gui extends JFrame {
         this.btnPlus = btnPlus;
     }
 
-    public JButton getButtonpassword() {
+    JButton getButtonpassword() {
         return buttonpassword;
     }
 
@@ -305,7 +305,7 @@ public class Gui extends JFrame {
         this.buttonpassword = buttonpassword;
     }
 
-    public JButton getCopyhash() {
+    JButton getCopyhash() {
         return copyhash;
     }
 
@@ -313,7 +313,7 @@ public class Gui extends JFrame {
         this.copyhash = copyhash;
     }
 
-    public JButton getCopypassword() {
+    JButton getCopypassword() {
         return copypassword;
     }
 
@@ -321,7 +321,7 @@ public class Gui extends JFrame {
         this.copypassword = copypassword;
     }
 
-    public JButton getGeneratehash() {
+    JButton getGeneratehash() {
         return generatehash;
     }
 
@@ -329,7 +329,7 @@ public class Gui extends JFrame {
         this.generatehash = generatehash;
     }
 
-    public JCheckBox getMD2checkbox() {
+    JCheckBox getMD2checkbox() {
         return MD2checkbox;
     }
 
@@ -337,7 +337,7 @@ public class Gui extends JFrame {
         this.MD2checkbox = MD2checkbox;
     }
 
-    public JCheckBox getMD5checkbox() {
+    JCheckBox getMD5checkbox() {
         return MD5checkbox;
     }
 
@@ -345,7 +345,7 @@ public class Gui extends JFrame {
         this.MD5checkbox = MD5checkbox;
     }
 
-    public JCheckBox getSHA1checkbox() {
+    JCheckBox getSHA1checkbox() {
         return SHA1checkbox;
     }
 
@@ -353,7 +353,7 @@ public class Gui extends JFrame {
         this.SHA1checkbox = SHA1checkbox;
     }
 
-    public JCheckBox getSHA224checkbox() {
+    JCheckBox getSHA224checkbox() {
         return SHA224checkbox;
     }
 
@@ -361,7 +361,7 @@ public class Gui extends JFrame {
         this.SHA224checkbox = SHA224checkbox;
     }
 
-    public JCheckBox getSHA256checkbox() {
+    JCheckBox getSHA256checkbox() {
         return SHA256checkbox;
     }
 
@@ -369,7 +369,7 @@ public class Gui extends JFrame {
         this.SHA256checkbox = SHA256checkbox;
     }
 
-    public JCheckBox getSHA384checkbox() {
+    JCheckBox getSHA384checkbox() {
         return SHA384checkbox;
     }
 
@@ -377,7 +377,7 @@ public class Gui extends JFrame {
         this.SHA384checkbox = SHA384checkbox;
     }
 
-    public JCheckBox getSHA512checkbox() {
+    JCheckBox getSHA512checkbox() {
         return SHA512checkbox;
     }
 
@@ -505,7 +505,7 @@ public class Gui extends JFrame {
         this.SHA512label = SHA512label;
     }
 
-    public JTextField getTextFieldAesKey() {
+    JTextField getTextFieldAesKey() {
         return textFieldAesKey;
     }
 
@@ -513,7 +513,7 @@ public class Gui extends JFrame {
         this.textFieldAesKey = textFieldAesKey;
     }
 
-    public JTextField getTextfieldhashinput() {
+    JTextField getTextfieldhashinput() {
         return textfieldhashinput;
     }
 
@@ -521,7 +521,7 @@ public class Gui extends JFrame {
         this.textfieldhashinput = textfieldhashinput;
     }
 
-    public JTextField getTextfieldhashoutput() {
+    JTextField getTextfieldhashoutput() {
         return textfieldhashoutput;
     }
 
@@ -529,7 +529,7 @@ public class Gui extends JFrame {
         this.textfieldhashoutput = textfieldhashoutput;
     }
 
-    public JTextField getTextFieldInput() {
+    JTextField getTextFieldInput() {
         return textFieldInput;
     }
 
@@ -537,7 +537,7 @@ public class Gui extends JFrame {
         this.textFieldInput = textFieldInput;
     }
 
-    public JTextField getTextfieldpasswordoutput() {
+    JTextField getTextfieldpasswordoutput() {
         return textfieldpasswordoutput;
     }
 
@@ -545,7 +545,7 @@ public class Gui extends JFrame {
         this.textfieldpasswordoutput = textfieldpasswordoutput;
     }
 
-    public JTextField getTextFieldResult() {
+    JTextField getTextFieldResult() {
         return textFieldResult;
     }
 
@@ -561,7 +561,7 @@ public class Gui extends JFrame {
         this.textfieldVigenere = textfieldVigenere;
     }
 
-    public JTextField getTextPasswordLength() {
+    JTextField getTextPasswordLength() {
         return textPasswordLength;
     }
 
@@ -569,7 +569,7 @@ public class Gui extends JFrame {
         this.textPasswordLength = textPasswordLength;
     }
 
-    public LinkedList<WindowModule> getWmList() {
+    LinkedList<WindowModule> getWmList() {
         return wmList;
     }
 
