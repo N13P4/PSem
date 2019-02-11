@@ -111,21 +111,21 @@ public class Main implements ActionListener {
                         break;
                     }
 
-                case "MD5":
+             /*   case "MD5":
                     try {
                         // textToEncrypt = MD.generatemd5hash(textToEncrypt);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
 
-                    break;
+                    break; */
                 default:
                     break;
             }
         }
         instance.getTextFieldResult().setText(textToEncrypt);
     }
-    public void btndecryptmethod(){
+    private void btndecryptmethod(){
         for (WindowModule windowModule1 : instance.getWmList())
             if (!windowModule1.isSelected()) {
                 JOptionPane.showMessageDialog(instance, "Alle Module müssen angekreuzt sein!");
@@ -166,7 +166,7 @@ public class Main implements ActionListener {
         }
         instance.getTextFieldResult().setText(textToDecrypt);
     }
-    public void btnhashmethod(){
+    private void btnhashmethod(){
         //Checks if a checkbox is selected - if not a message will pop up
         if(checktheboxes()){
             JOptionPane.showMessageDialog(Gui.popup, "Select a hashing algorithm!");
@@ -216,7 +216,7 @@ public class Main implements ActionListener {
             }
         }
     }
-    public void btncopypasswordmethod(){
+    private void btncopypasswordmethod(){
         if (instance.getTextfieldpasswordoutput().getText().equals("")) {
             JOptionPane.showMessageDialog(Gui.popup, "Nothing to copy");
         } else {
@@ -226,7 +226,7 @@ public class Main implements ActionListener {
             clipboard.setContents(stringSelection, null);
         }
     }
-    public void btncopyhashmethod(){
+    private void btncopyhashmethod(){
         if (instance.getTextfieldhashoutput().getText().equals("")) {
             JOptionPane.showMessageDialog(Gui.popup, "Nothing to copy");
         } else {
@@ -236,14 +236,14 @@ public class Main implements ActionListener {
             clipboard.setContents(stringSelection, null);
         }
     }
-    public void btngetpasswordmethod(){
+    private void btngetpasswordmethod(){
        try{
            instance.getTextfieldpasswordoutput().setText(Passwordgenerator.execute(instance.getTextPasswordLength().getText()));
        }catch(Exception e){
            JOptionPane.showMessageDialog(Gui.popup, "Error message: " + e.getMessage());
        }
     }
-    public void btnexpandmethod(){
+    private void btnexpandmethod(){
         if (!instance.isExpanded()) {
             instance.setSize(1200, 225 + (instance.getWmList().size() * 70));
             instance.getBtnExpand().setText("<");
@@ -253,19 +253,19 @@ public class Main implements ActionListener {
         }
         instance.setExpanded(!instance.isExpanded());
     }
-    public void btnplusmethod(){
+    private void btnplusmethod(){
         if (!(instance.getHeight() + 40 > Toolkit.getDefaultToolkit().getScreenSize().height - 40)) {
             instance.getWindowModuleList().add(new WindowModule(instance.getWindowModuleList().size(), 40));
             instance.reload();
         }
     }
-    public void btnminusmethod(){
+    private void btnminusmethod(){
         if (!(instance.getWmList().size() == 1)) {
             instance.getWindowModuleList().removeLast();
             instance.reload();
         }
     }
-    public void copycryptomethod(){
+    private void copycryptomethod(){
         //Copies the text from "textFieldResult" to your clipboard - if the textfield is empty a message will pop up
         if (instance.getTextFieldResult().getText().equals("")) {
             JOptionPane.showMessageDialog(Gui.popup, "Nothing to copy");
@@ -278,7 +278,7 @@ public class Main implements ActionListener {
     }
 
     // Below are the methods for the hashing checkboxes. If one checkbox is enabled all others will be disabled.
-    public void SHA1checkboxmethod(){
+    private void SHA1checkboxmethod(){
         if (instance.getSHA1checkbox().isSelected()) {
             disableall();
             instance.getSHA1checkbox().setEnabled(true);
@@ -286,7 +286,7 @@ public class Main implements ActionListener {
             enableall();
         }
     }
-    public void SHA224checkboxmethod(){
+    private void SHA224checkboxmethod(){
         if (instance.getSHA224checkbox().isSelected()) {
             disableall();
             instance.getSHA224checkbox().setEnabled(true);
@@ -294,7 +294,7 @@ public class Main implements ActionListener {
             enableall();
         }
     }
-    public void SHA256checkboxmethod(){
+    private void SHA256checkboxmethod(){
         if (instance.getSHA256checkbox().isSelected()) {
            disableall();
            instance.getSHA256checkbox().setEnabled(true);
@@ -302,7 +302,7 @@ public class Main implements ActionListener {
             enableall();
         }
     }
-    public void SHA384checkboxmethod(){
+    private void SHA384checkboxmethod(){
         if (instance.getSHA384checkbox().isSelected()) {
             disableall();
             instance.getSHA384checkbox().setEnabled(true);
@@ -310,7 +310,7 @@ public class Main implements ActionListener {
             enableall();
         }
     }
-    public void SHA512checkboxmethod(){
+    private void SHA512checkboxmethod(){
         if (instance.getSHA512checkbox().isSelected()) {
            disableall();
            instance.getSHA512checkbox().setEnabled(true);
@@ -318,7 +318,7 @@ public class Main implements ActionListener {
             enableall();
         }
     }
-    public void MD2checkboxmethod(){
+    private void MD2checkboxmethod(){
         if (instance.getMD2checkbox().isSelected()) {
            disableall();
            instance.getMD2checkbox().setEnabled(true);
@@ -326,7 +326,7 @@ public class Main implements ActionListener {
             enableall();
         }
     }
-    public void MD5checkboxmethod(){
+    private void MD5checkboxmethod(){
         if (instance.getMD5checkbox().isSelected()) {
             disableall();
             instance.getMD5checkbox().setEnabled(true);
