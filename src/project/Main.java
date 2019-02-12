@@ -76,7 +76,7 @@ public class Main implements ActionListener {
 
         for (WindowModule windowModule : instance.getWmList()) {
             if (!windowModule.isSelected()) {
-                JOptionPane.showMessageDialog(instance, "Alle Module müssen angekreuzt sein!");
+                JOptionPane.showMessageDialog(instance, "All modules have to be selected!");
                 return;
             }
         }
