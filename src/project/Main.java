@@ -128,7 +128,7 @@ public class Main implements ActionListener {
     private void btndecryptmethod(){
         for (WindowModule windowModule1 : instance.getWmList())
             if (!windowModule1.isSelected()) {
-                JOptionPane.showMessageDialog(instance, "Alle Module müssen angekreuzt sein!");
+                JOptionPane.showMessageDialog(instance, "All modules must be selected!");
             }
         String textToDecrypt = instance.getTextFieldInput().getText();
         for (WindowModule windowModule : instance.getWmList()) {
@@ -146,11 +146,11 @@ public class Main implements ActionListener {
                     }
                     break;
                 case "AES":
-                    if (instance.getTextFieldAesKey().getText().length() != 16) {
-                        JOptionPane.showMessageDialog(Gui.popup, "Key must have a length of 16 chars.\nCurrent length is " + instance.getTextFieldAesKey().getText().length());
+                    if (key.length() != 16) {
+                        JOptionPane.showMessageDialog(Gui.popup, "Key must have a length of 16 chars.\nCurrent length is " + key.length());
                     }
                     try {
-                        textToDecrypt = AESCipher.aesDecryptString(textToDecrypt, instance.getTextFieldAesKey().getText());
+                        textToDecrypt = AESCipher.aesDecryptString(textToDecrypt, key);
                         //Verschlüsselt mit AES
                         break;
                     } catch (Exception e) {

@@ -2,7 +2,6 @@ package project.additional;
 
 
 import java.io.*;
-import org.jetbrains.annotations.NotNull;
 import project.Gui;
 import org.apache.commons.lang3.RandomStringUtils;
 import javax.swing.*;
@@ -37,7 +36,6 @@ public class Passwordgenerator {
         return "error";
     }
 
-    @NotNull
     private static String getString(int l) throws IOException {
         String pool;
         FileReader fr = new FileReader("password_pool.cfg");

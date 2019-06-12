@@ -5,7 +5,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Cryptoattacks {
+public class CryptoAttacks {
 
     private static final ArrayList<String> words = loadWords();
 
@@ -22,7 +22,7 @@ public class Cryptoattacks {
     private static ArrayList<String> loadWords() {
         ArrayList<String> output = new ArrayList<>();
         try {
-            File file = new File(Cryptoattacks.class.getClassLoader().getResource("project/kryptoattacks/words.txt").toURI());
+            File file = new File(CryptoAttacks.class.getClassLoader().getResource("project/kryptoattacks/words.txt").toURI());
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 output.add(sc.next());

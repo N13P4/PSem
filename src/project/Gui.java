@@ -147,7 +147,6 @@ public class Gui extends JFrame {
         SHA512checkbox.setBounds(1050, 200, 20, 20);
         SHA512label = new JLabel("SHA512");
         SHA512label.setBounds(1070, 200, 70, 20);
-        textFieldAesKey = new JTextField();
         textfieldhashinput = new JTextField();
         textfieldhashinput.setBounds(770, 100, 255, 20);
         textfieldhashoutput = new JTextField();
