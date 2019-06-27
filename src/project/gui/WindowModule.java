@@ -28,7 +28,7 @@ public class WindowModule extends JPanel{
 		
 		cb1 = new JCheckBox("Vigenere 2.0");
 		cb2 = new JCheckBox("AES");
-		cb3 = new JCheckBox("NOT IMPLEMENTED");
+		cb3 = new JCheckBox("CAESAR");
 
 		lblKey = new JLabel("Key: ");
 		lblKey.setForeground(Color.WHITE);

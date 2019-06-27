@@ -6,6 +6,7 @@ import project.encryption.Vigenere;
 import project.encryption.hashing.MD;
 import project.encryption.hashing.SHA;
 import project.gui.WindowModule;
+import project.kryptoattacks.CryptoAttacks;
 
 import javax.swing.*;
 import java.awt.*;
@@ -157,8 +158,12 @@ public class Main implements ActionListener {
                         System.out.println(e.getMessage());
                     }
 
-                case "MD5":
-
+                case "CAESAR":
+                    if(key.isEmpty()) {
+                        String test = CryptoAttacks.caesar_decode(textToDecrypt);
+                        System.out.println(test);
+                        textToDecrypt = test;
+                    }
                     break;
                 default:
                     break;

@@ -1,36 +1,59 @@
 package project.kryptoattacks;
 
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.io.File;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 public class CryptoAttacks {
 
-    private static final ArrayList<String> words = loadWords();
+    //Caesar
 
-    public static String decryptCaesar(String text) {
-        //DEBUG: Zeit zum berechnen des Schlüssels
-        Instant tmpTime1 = Instant.now();
-        String[] textWords = text.split(" ");
-        for(int i = 0; i < textWords.length; i++) {
-
+    private static int caesar_Key(String text) {
+        text = text.toLowerCase();
+        HashMap<Character, Integer> letters = new HashMap<>();
+        for(int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            if(letters.keySet().contains(c)) {
+                letters.put(c, letters.get(c) + 1);
+            } else {
+                letters.put(c, 1);
+            }
         }
-        return "";
+        int mostLetter = 0;
+        char ch = ' ';
+        for(Character c : letters.keySet()) {
+            if(mostLetter < letters.get(c) && c != ' ') {
+                mostLetter = letters.get(c);
+                ch = c;
+            }
+        }
+        int len = (ch - 97 - 4);
+        if(len >= 0) return len;
+        else return 25 - Math.abs(len);
     }
 
-    private static ArrayList<String> loadWords() {
-        ArrayList<String> output = new ArrayList<>();
-        try {
-            File file = new File(CryptoAttacks.class.getClassLoader().getResource("project/kryptoattacks/words.txt").toURI());
-            Scanner sc = new Scanner(file);
-            while (sc.hasNext()) {
-                output.add(sc.next());
+    public static String caesar_decode(String text) {
+        int key = caesar_Key(text);
+        text = text.toLowerCase();
+        StringBuilder newText = new StringBuilder();
+        System.out.println(key);
+        for(int i = 0; i < text.length(); i++) {
+            int cc1 = text.charAt(i);
+            if(text.charAt(i) > 96 && text.charAt(i) < 123) {
+                 cc1 -= key;
+                if(cc1 < 97) {
+                    int ab = 97 - cc1;
+                    cc1 = 123 - ab;
+                }
             }
-        } catch (Exception e) {
-
+            newText.append((char)cc1);
         }
-        return output;
+        System.out.println(newText.toString());
+        return newText.toString();
     }
 
 }
