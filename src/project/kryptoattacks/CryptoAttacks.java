@@ -52,8 +52,61 @@ public class CryptoAttacks {
             }
             newText.append((char)cc1);
         }
-        System.out.println(newText.toString());
         return newText.toString();
+    }
+
+    public static String caesar_encode(String text, int key) {
+        key = Math.abs(key) % 26;
+        text = text.toLowerCase();
+        String encrypted_Message = "";
+        char chr = ' ';
+        for(int i = 0; i < text.length(); i++){
+            chr = text.charAt(i);
+            if(chr == ' ') {
+                encrypted_Message += chr;
+                continue;
+            }
+
+
+            if(chr >= 'a' && chr <= 'z'){
+                chr = (char)(chr + key);
+
+                if(chr > 'z'){
+                    chr = (char)('a' + (chr - 'z'));
+                }
+
+                encrypted_Message += chr;
+            }
+        }
+        return encrypted_Message;
+    }
+
+    private static String vigenere_key(String text) {
+        return null;
+    }
+
+    public static String vigenere_decode(String text) {
+        String key = vigenere_key(text);
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        int alphabetSize = alphabet.length();
+        int textSize = text.length();
+        int keySize = key.length();
+        StringBuilder decryptedText = new StringBuilder(textSize);
+
+        for (int i = 0; i < textSize; i++)
+        {
+            char encyrptChar = text.charAt(i); // get the current character to be shifted
+            char keyChar = key.charAt(i % keySize); // use key again if the end is reached
+            int plainPos = alphabet.indexOf(encyrptChar); // plain character's position in alphabet string
+            // decrypt the input text
+            int keyPos = alphabet.indexOf(keyChar); // key character's position in alphabet
+            int shiftedPos = plainPos-keyPos;
+            if(shiftedPos < 0)
+                shiftedPos += alphabetSize;
+            decryptedText.append(alphabet.charAt(shiftedPos));
+        }
+
+        return decryptedText.toString();
     }
 
 }

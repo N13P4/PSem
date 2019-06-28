@@ -1,5 +1,6 @@
 package project;
 
+import org.apache.commons.lang3.StringUtils;
 import project.additional.Passwordgenerator;
 import project.encryption.AESCipher;
 import project.encryption.Vigenere;
@@ -111,6 +112,10 @@ public class Main implements ActionListener {
                         System.out.println(e.getMessage());
                         break;
                     }
+                case "CAESAR":
+                    if(StringUtils.isNumeric(key)) {
+                        textToEncrypt = CryptoAttacks.caesar_encode(textToEncrypt, Integer.parseInt(key));
+                    }
 
              /*   case "MD5":
                     try {
@@ -136,8 +141,8 @@ public class Main implements ActionListener {
             String key = windowModule.getKey();
             switch (windowModule.getSelected()) {
                 case "Vigenere 2.0":
-                    if(key.equals("")){
-                        JOptionPane.showMessageDialog(Gui.popup, "Key mustn't be empty.");
+                    if(key.isEmpty()){
+                        textToDecrypt = CryptoAttacks.vigenere_decode(textToDecrypt);
                         break;
                     }
                     try {
@@ -159,11 +164,8 @@ public class Main implements ActionListener {
                     }
 
                 case "CAESAR":
-                    if(key.isEmpty()) {
-                        String test = CryptoAttacks.caesar_decode(textToDecrypt);
-                        System.out.println(test);
-                        textToDecrypt = test;
-                    }
+                    String test = CryptoAttacks.caesar_decode(textToDecrypt);
+                    textToDecrypt = test;
                     break;
                 default:
                     break;
