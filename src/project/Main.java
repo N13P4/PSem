@@ -87,11 +87,12 @@ public class Main implements ActionListener {
             String key = windowModule.getKey();
             switch (windowModule.getSelected()) {
                 case "Vigenere 2.0":
-                    if(key.equals("")){
-                        key = "0";
+                    if(key.isEmpty()){
+                        JOptionPane.showMessageDialog(Gui.popup, "Key must not be empty!");
+                        break;
                     }
                     try{
-                        textToEncrypt = Vigenere.encrypt(textToEncrypt, Integer.valueOf(key));
+                        textToEncrypt = Vigenere.encrypt(textToEncrypt, key.toUpperCase());
                         // Verschlüsselt mit Vigenere
                         break;
                     }catch(Exception e){
@@ -142,11 +143,12 @@ public class Main implements ActionListener {
             switch (windowModule.getSelected()) {
                 case "Vigenere 2.0":
                     if(key.isEmpty()){
-                        textToDecrypt = CryptoAttacks.vigenere_decode(textToDecrypt);
+                        //textToDecrypt = CryptoAttacks.vigenere_decode(textToDecrypt);
+                        JOptionPane.showMessageDialog(Gui.popup, "Key must not be empty!");
                         break;
                     }
                     try {
-                        textToDecrypt = Vigenere.decrypt(textToDecrypt, Integer.valueOf(key));
+                        textToDecrypt = Vigenere.decrypt(textToDecrypt, key.toUpperCase());
                     }catch(Exception e){
                         JOptionPane.showMessageDialog(Gui.popup, "Key must be numeric!\n Error message: " + e.getMessage());
                     }
